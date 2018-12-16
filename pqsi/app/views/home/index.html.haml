@@ -1,0 +1,69 @@
+%table{:border => ""}
+  %tr
+    %td{ :style => "border: 0; width: 50%;" }
+      %h2 Top Defects in Last 30 Days
+      - if @defects
+        :javascript
+          $(function(){
+            new Highcharts.Chart({
+              chart: {
+                renderTo: "pareto_chart",
+                defaultSeriesType: 'column'
+              },
+              credits: {
+                      enabled: false
+              },
+              title: {
+                text: "Top Defects"
+              },
+              xAxis: {
+                categories: #{ @defects.map {|defect, count| defect ? defect : 0 }.inspect },
+                labels: {
+                  rotation: -45,
+                  align: 'right',
+                  style: {
+                    font: 'normal 13px Arial, sans-serif'
+                  }
+                }
+              },
+              yAxis: {
+                min: 0,
+                title: {
+                  text: "Defect Quantity"
+                }
+              },
+              legend: {
+                enabled: false
+              },
+              series: [{
+                name: "Rejects",
+                data: #{@defects.map {|defect, count| count ? count : 0 }.inspect }
+              }]
+            });
+          });
+        #pareto_chart{ :style => "width: 100%; height: 400px;" }
+        - @defects.each do |defect, count|
+          - unless count == 0
+            %li
+              %strong= count
+              = " - "
+              = defect
+              %br
+    %td{ :style => "border: 0;  width: 50%;" }
+      %h2 Recently Updated NCR
+      %ul
+        - if @recently_updated_ncms
+          - @recently_updated_ncms.each do |ncm|
+            %li
+              = link_to ncm.label, ncm
+              %small
+                &nbsp;&nbsp; Last Updated
+                = ncm.scans.order("scanned_on DESC").first.scanned_on.strftime("%m/%d/%y")
+  
+      %h2 Newly Added NCR
+      %ul
+        - if @newest_ncms
+          - @newest_ncms.each do |ncm|
+            %li
+              = link_to ncm.label, ncm
+= render "shared/left_menu"

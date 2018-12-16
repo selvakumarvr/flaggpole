@@ -1,0 +1,29 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  identifier: MyString
+  sender: MyText
+  sent: 2012-04-12 21:45:05
+  status: MyString
+  msg_type: MyString
+  source: MyString
+  scope: MyString
+  restriction: MyText
+  addresses: MyText
+  note: MyText
+  references: MyText
+  incidents: MyText
+
+two:
+  identifier: MyString
+  sender: MyText
+  sent: 2012-04-12 21:45:05
+  status: MyString
+  msg_type: MyString
+  source: MyString
+  scope: MyString
+  restriction: MyText
+  addresses: MyText
+  note: MyText
+  references: MyText
+  incidents: MyText

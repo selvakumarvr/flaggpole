@@ -1,0 +1,34 @@
+:javascript
+  $(function(){
+    new Highcharts.Chart({
+      chart: {
+        renderTo: "rejects_chart"
+      },
+      title: {
+        text: "Rejects by Day"
+      },
+      credits: {
+              enabled: false
+      },
+      xAxis: {
+        type: "datetime"
+      },
+      yAxis: {
+        title: {
+          text: "Quantity"
+        }
+      },
+      tooltip: {
+        formatter: function() {
+          return Highcharts.dateFormat("%B %e, %Y", this.x) + ': ' + this.y + " rejects";
+        }
+      },
+      series: [{
+        name: "Rejects",
+        pointInterval: #{ 1.day * 1000 },
+        pointStart: #{ 4.weeks.ago.to_i * 1000 },
+        data: #{ (30.days.ago.to_date..Date.today).map{ |date| Scan.rejects_on(date)}.inspect }
+      }]
+    });
+  });
+#rejects_chart{ :style => "width: 100%; height: 300px;" }

@@ -1,0 +1,55 @@
+<% title "Portal" %>
+<h1>TwitZip Message Delivery Dashboard</h1>
+<hr>
+
+<ol id="steps">
+  <li><span>Step 1</span> Select Message Type</li>
+  <li><span>Step 2</span> Select Area to Tweet</li>
+  <li><span>Step 3</span> Tweet Your Message</li>
+</ol>
+
+<%= form_for(@promotion) do |f| %>
+  <%# f.error_messages %>
+  <% @promotion.errors.full_messages.each do |msg| %>
+      <p><%= msg %></p>
+   <% end %>
+
+  <h3>Message Type</h3>
+  <div class="sectionbox">
+    <%- Promotion::MESSAGE_TYPES.each do |index, mt| -%>
+      <%= f.radio_button :message_type, index %>
+      <%= f.label :message_type, mt %>
+    <%- end -%>
+    <%# error_message_on @promotion, :message_type %>
+  </div>
+
+  <h3>Tweet Zip Codes</h3>
+  <div class="sectionbox">
+    <div class="labeltext">Enter up to 5</div>
+      <% for pz in @promotion.promotion_zips -%>
+        <%= fields_for "promotion[zip_attributes][]", pz do |pz_form| %>
+          <span>
+            <%= pz_form.text_field :zip, :class => "zip", :maxlength => 5 %>
+            <%# error_message_on pz, :zip %>
+            <input type="hidden" class="zip_count" value="0" />
+          </span>
+        <% end -%>
+      <% end -%>
+    <%# error_message_on @promotion, :zip %>
+    <span class="labeltext">Total Reach <span id="totalreach">0</span></span>
+  </div>
+
+  <h3>Time to Tweet</h3>
+  <div class="sectionbox">
+    <%= f.datetime_select :send_at %>
+    <%# error_message_on @promotion, :send_at %>
+  </div>
+
+  <h3>Message</h3>
+  <div class="sectionbox">
+    <%= f.text_area :message, :placeholder => "Enter your message here..." %>
+    <%# error_message_on @promotion, :message %>
+    <br />
+    <%= f.submit 'Tweet' %>
+  </div>
+<% end %>

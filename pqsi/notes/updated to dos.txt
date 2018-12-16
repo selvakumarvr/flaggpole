@@ -1,0 +1,30 @@
+Must get done to get paid
+  Automatic sending of daily report to customer.
+  Test out scoping/security of data based on client
+  - Fix hours on NCM
+  - Hours need to have a date associated with them.
+  - Fix Plant info on NCM show page.
+  - NCM # should be required.
+  - Location Manager should just see locations.
+    - Setup way to assign a user to a location.
+  - Multiple hourly entries
+  Job ID
+  Date Range
+  PDF Exporting and emailing
+  Graphs
+  Mobile interface
+  Scanner data importing
+  Nice Header
+  
+  Importing an Excel version of scanner file
+  Add ability to remove vendors form a customer page
+  
+Drop down menu of existing records or allow new creation of new record for the following:
+  Part Name
+  SQE / PQE
+
+
+
+DONE
+  * Javascript for hiding fields based on selection of Cost Center or Supplier
+  * Add inspection hours after entering in NCM data

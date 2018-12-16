@@ -1,0 +1,23 @@
+%h1
+  Summary Report for 
+  = @customer.name.titleize.rstrip
+
+= form_tag summary_report_customer_path(@customer), :method => :post do
+  %strong From: 
+  %br
+  = select_date @start_date, :prefix => 'start_date', :order => [:month, :day, :year]
+  %br
+  %br
+  %strong To:
+  %br
+  = select_date @end_date, :prefix => 'end_date', :order => [:month, :day, :year]
+  %br
+  %br
+  %strong Email to:
+  %br
+  = text_field_tag 'email', @email
+  %br
+  %br
+  = submit_tag "Generate Report"
+  
+= render "shared/left_menu"

@@ -1,0 +1,12 @@
+<h2 class="page-header">Contact Us</h2>
+
+<p>Thank you for your interest in TwitZIP!</p>
+
+<p>
+  If you have a question or comment for us - we would love to hear from you! Just fill in the form below and send it over to us.
+  We will try to respond (as appropriate) within 24 hours.
+</p>
+
+<%= form_for @message, url: contact_path do |form| %>
+  <%= render partial: "form", locals: { form: form } %>
+<% end %>

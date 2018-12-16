@@ -1,0 +1,21 @@
+.float_right
+  = link_to 'Add New Parts', new_part_path
+%h1 Listing Parts
+
+%table
+  %tr
+    %th Name
+    %th Number
+    %th
+    %th
+    %th
+
+  - @parts.each do |part|
+    %tr
+      %td= part.name
+      %td= part.number
+      %td= link_to 'Show', part
+      %td= link_to 'Edit', edit_part_path(part)
+      %td= link_to 'Delete', part, :confirm => 'Are you sure?', :method => :delete
+
+= render "shared/left_menu"

@@ -1,0 +1,25 @@
+
+  <% if @message.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@message.errors.count, "error") %> prohibited this message from being saved:</h2>
+
+      <ul>
+      <% @message.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <fieldset>
+
+      <div class="field">
+        <%= form.label :message, "Message" %>
+        <%= form.text_area :message, :class => 'input-xlarge', :rows => 10 %>
+      </div>
+
+      <div class="field">
+        <%= form.submit "Send", :class => 'btn btn-primary' %>
+      </div>
+
+  </fieldset>

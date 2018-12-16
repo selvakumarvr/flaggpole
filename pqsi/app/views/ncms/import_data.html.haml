@@ -1,0 +1,70 @@
+- if request.put?
+  
+  %h1 Test Importing Data... (not saved)
+  
+  - CSV.foreach(params[:csv_file].tempfile.path, :headers => :first_row) do |row|
+  
+    Row ID:
+    = row["Row ID"]
+    %br
+    
+    Lot Number: 
+    = row["Lot Number"]
+    %br
+    
+    Serial Number: 
+    = row["Serial Number"] 
+    %br
+    
+    IPS: 
+    = row["IPS"]
+    %br
+    
+    NCM:
+    = @ncm.name
+    %br
+    
+    Manufacturing Date
+    = row["Manufacturing Date"]
+    %br
+    
+    Part Number:
+    = row["Part Number"]
+    %br
+    
+    Inspection Date:
+    = row["Inspection Date"]
+    %br
+    
+    Total Quantity:
+    = row["Quantity"]
+    %br
+    
+    Comments:
+    = row["Comments"]
+    %br
+    
+    %em Rejects
+    %br
+    - @headers = row.headers.find_all{|header| header =~ /^Reject:\s*/ }
+    - @headers.each do |header|
+      = header.gsub(/^Reject:\s*/, '')
+      = ": "
+      = row[header]
+      %br
+    
+    
+    %br
+
+- else
+  
+  %h1 Import Data
+  
+  = form_tag( import_data_ncm_path(@ncm), :multipart => true, :method => :put) do |f|
+    .field.align_right
+      %label Select CSV File
+      = file_field_tag "csv_file"
+    .action.align_right
+      = submit_tag "Upload Data"
+      
+= render "shared/left_menu"

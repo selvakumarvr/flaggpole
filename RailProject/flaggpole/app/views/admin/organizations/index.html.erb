@@ -1,0 +1,20 @@
+<h2 class="page-header">Listing Organizations</h1>
+
+<table class="table table-striped">
+  <tr>
+    <th colspan="4">Organization</th>
+  </tr>
+
+<% @organizations.each do |o| %>
+  <tr>
+    <td><%=h o.name %></td>
+    <td><%= link_to 'Show', admin_organization_path(o) %></td>
+    <td><%= link_to 'Edit', edit_admin_organization_path(o) %></td>
+    <td><%= link_to 'Delete', admin_organization_path(o), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Organization', new_admin_organization_path, :class => 'btn btn-primary' %>

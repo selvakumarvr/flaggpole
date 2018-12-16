@@ -1,0 +1,11 @@
+<%
+root = '/srv/www/flaggpole.com/flaggpole'
+pid_file = root + '/' + 'lib/twitzips/tweetstream.pid'
+bundle = '/usr/local/bin/bundle'
+tweetstream = root + '/' + 'script/tweetstream'
+env = "/usr/bin/env HOME=/home/deploy PATH=/usr/local/bin:$PATH"
+%>
+check process tweetstream
+  with pidfile <%= pid_file %>
+  start program = "<%= env %> <%= bundle %> exec <%= tweetstream %> start"
+  stop program  = "<%= env %> <%= bundle %> exec <%= tweetstream %> stop"

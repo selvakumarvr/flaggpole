@@ -1,0 +1,92 @@
+.w600
+  = form_for @scan do |f|
+    -if @scan.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@scan.errors.count, "error")} prohibited this scan from being saved:"
+        %ul
+          - @scan.errors.full_messages.each do |msg|
+            %li= msg
+    .field.labels_on_top
+      = f.label :lot_number, "Lot Number"
+      = f.text_field :lot_number
+      
+    .field.labels_on_top
+      = f.label :serial, "Serial Number"
+      = f.text_field :serial
+    
+    .field.labels_on_top
+      = f.label :ipn, "IPN"
+      = f.text_field :ipn
+
+    .field.labels_on_top
+      = f.label :ncm_id
+      = f.collection_select(:ncm_id, Ncm.order("ncm_number").all, :id, :ncm_number, :prompt => true)
+      
+    .field.labels_on_top.date
+      = f.label :manufacturing_date, "Manufacturing Date"
+      = f.date_select :manufacturing_date, :order => [:day, :month, :year], :include_blank => true
+      
+    .field.labels_on_top
+      = f.label :part_number, "Part Number"
+      = f.text_field :part_number
+    
+    .w45pc.float_left.mr10
+      .field.labels_on_top.date
+        = f.label :scanned_on
+        = f.date_select :scanned_on, :order => [:day, :month, :year], :include_blank => true
+    
+
+    = clear
+    
+    .field.labels_on_top
+      = f.label :quantity, "Total number of parts sorted"
+      = f.text_field :quantity
+      
+    .field.labels_on_top.width_50.float_left
+      = f.label :reject_reason_1_label, "Reject Reason 1 Label"
+      = f.text_field :reject_reason_1_label
+    
+    .field.labels_on_top.width_50.float_left
+      = f.label :reject_reason_1_quantity, "Reject Reason 1 Quantity"
+      = f.text_field :reject_reason_1_quantity
+    = clear
+    .field.labels_on_top.width_50.float_left
+      = f.label :reject_reason_2_label, "Reject Reason 2 Label"
+      = f.text_field :reject_reason_2_label
+    
+    .field.labels_on_top.width_50.float_left
+      = f.label :reject_reason_2_quantity, "Reject Reason 2 Quantity"
+      = f.text_field :reject_reason_2_quantity
+    = clear
+    .field.labels_on_top.width_50.float_left
+      = f.label :reject_reason_3_label, "Reject Reason 3 Label"
+      = f.text_field :reject_reason_3_label
+    
+    .field.labels_on_top.width_50.float_left
+      = f.label :reject_reason_3_quantity, "Reject Reason 3 Quantity"
+      = f.text_field :reject_reason_3_quantity
+    = clear
+    .field.labels_on_top.width_50.float_left
+      = f.label :reject_reason_4_label, "Reject Reason 4 Label"
+      = f.text_field :reject_reason_4_label
+    
+    .field.labels_on_top.width_50.float_left
+      = f.label :reject_reason_4_quantity, "Reject Reason 4 Quantity"
+      = f.text_field :reject_reason_4_quantity
+    = clear
+    .field.labels_on_top.width_50.float_left
+      = f.label :reject_reason_5_label, "Reject Reason 5 Label"
+      = f.text_field :reject_reason_5_label
+    
+    .field.labels_on_top.width_50.float_left
+      = f.label :reject_reason_5_quantity, "Reject Reason 5 Quantity"
+      = f.text_field :reject_reason_5_quantity
+    = clear
+      
+    .field.labels_on_top
+      = f.label :comments
+      = f.text_area :comments
+      
+    .actions.labels_on_top
+      %hr
+      = f.submit 'Add Data'

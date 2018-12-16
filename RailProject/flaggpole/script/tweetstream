@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'daemons'
+
+file = File.dirname(__FILE__) + '/../lib/twitzips/tweetstream.rb'
+
+options = {
+  :app_name   => "tweetstream",
+  :multiple   => false,
+  :monitor    => false
+}
+
+Daemons.run(file, options)

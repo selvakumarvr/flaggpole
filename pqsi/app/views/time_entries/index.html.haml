@@ -1,0 +1,35 @@
+.ncm_time_entries_index_page
+  .float_right.no_print
+    = link_to 'Back to NCR', ncm_path(@ncm)
+    = link_to 'New Time Entry', new_ncm_time_entry_path(@ncm)
+  %h1 Time entries
+
+  %table
+    %tr
+      %th Date
+      %th Type
+      %th Shift
+      %th Ncr
+      %th Hours
+      %th Entered by
+      %th Entered on
+      %th
+
+    - @time_entries.each do |time_entry|
+      %tr
+        %td= time_entry.date.strftime("%m/%d/%y")
+        %td= time_entry.entry_type.titleize if time_entry.entry_type
+        %td= time_entry.shift
+        %td= time_entry.ncm_id
+        %td= time_entry.hours
+        %td= time_entry.user.name
+        %td= time_entry.created_at.strftime("%m/%d/%y %I:%M%p")
+        %td
+          = link_to 'Edit', [:edit, @ncm, time_entry]
+          = link_to 'Delete', [@ncm, time_entry], :confirm => 'Are you sure?', :method => :delete
+
+  %br
+
+  
+
+= render "shared/left_menu"

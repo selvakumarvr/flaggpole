@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta name="keywords" content="twitzip" />
+  <meta name="description" content="32,000 Twitter zip code provide local messaging such as conversations, news, blogs, events, crime, weather, scores, and government alerts." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TwitZIP: local news, blogs, events, and weather</title>
+  <%= stylesheet_link_tag 'application' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tag %>
+  <%= yield(:head) %>
+</head>
+
+<body class="index">
+  <div id="XXXcontainer" class="container">
+
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, :id => "flash_#{name}", :class => flash_class(name) do -%>
+          <a href="#" data-dismiss="alert" class="close">×</a>
+          <%= msg %>
+        <% end -%>
+      <% end %>
+
+    <% unless params[:app] == '1' %>
+      <div id="mobile-header" class="hidden-desktop">
+
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="container">
+
+              <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+              <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </a>
+
+              <!-- Be sure to leave the brand out there if you want it shown -->
+              <a class="brand" href="#">TwitZIP</a>
+
+              <!-- Everything you want hidden at 940px or less, place within here -->
+              <div class="nav-collapse collapse">
+                <!-- .nav, .navbar-search, .navbar-form, etc -->
+                  <ul class="nav">
+                    <li><%= link_to 'Home', root_path %></li>
+                    <li>
+                      <% if portal_user_signed_in? %>
+                        <!-- Signed in as <%# current_user.email %>. -->
+                        <%= link_to "Logout", destroy_portal_user_session_path, :method => :delete %>
+                        <%= link_to "Edit Profile", edit_portal_user_registration_path %>
+                      <% else %>
+                        <%= link_to "Login", new_portal_user_session_path %>
+                      <% end %>
+                    </li>
+                    <li><%= link_to 'About Us', :controller => '/pages', :action => 'about' %></li>
+                    <li><%= link_to 'Contact Us', contact_path %></li>
+                  </ul>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="header" class="visible-desktop">
+        <div id="navbar">
+          <ul>
+            <li>
+              <% if portal_user_signed_in? %>
+                <!-- Signed in as <%# current_user.email %>. -->
+                <%= link_to "Logout", destroy_portal_user_session_path, :method => :delete %>
+                <%= link_to "Edit Profile", edit_portal_user_registration_path %>
+              <% else %>
+                <%= link_to "Login", new_portal_user_session_path %>
+              <% end %>
+            </li>
+            <li><%= link_to 'Home', root_path %></li>
+            <li><%= link_to 'About Us', :controller => '/pages', :action => 'about' %></li>
+            <li><%= link_to 'Contact Us', contact_path %></li>
+          </ul>
+          </div> <!-- end navbar -->
+
+          <div id="navbar2">
+            <div class="opps" style="visibility: hidden">
+              Sorry, '<%= @zip %>' is not a TwitZip.
+            </div>
+          <ul>
+            <li><em>http://twitter.com/</em></li>
+            <li class="goborder">
+              <%= form_tag twitter_zips_path(:format => :json), :method => :get, :class => "zipcode" do %>
+                  <%= text_field_tag :q, params[:q], :size => 15, :placeholder => "Your Zip Code", :class => "gotext", :style => "border-style: none;" %>
+                  <%= button_tag '', :name => nil, :id => "go-button", :class => "goicon" %>
+              <% end %>
+            </li>
+          </ul>
+        </div> <!-- end navbar2 -->
+      </div> <!-- end header -->
+    <% end %>
+
+    <%= yield %>
+
+    <div id="footer"> 
+      <div style="float:left;width:400px;text-align:left;">
+        <p><%= link_to "Contact Us", contact_path %></p>
+      </div>
+      <div style="float:right;width:300px;text-align:right;">
+        <p>All content copyright &copy; 2013, Flaggpole, Inc.</p>
+      </div>
+    </div> <!-- end footer -->  
+
+  </div> <!-- end container -->
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('form.zipcode').submit(function(e){
+      e.preventDefault();
+      var zip = $('#q').val();
+      var formdata = $('form.zipcode').serialize();
+      $.getJSON('<%= twitter_zips_path(:format => :json) %>', formdata, function(data){
+        if(typeof data['twitter_zips'][0] !== "undefined") {
+          window.location.href = 'http://twitter.com/' + data['twitter_zips'][0].zip;
+        }
+        else {
+          $('.opps').html("Sorry, '" + zip + "' is not a TwitZip.").css('visibility','');
+        }
+      });
+    });
+  });
+</script>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-13275923-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+</html>

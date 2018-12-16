@@ -1,0 +1,87 @@
+- if (can? :manage, @user) || @user == current_user
+  .float_right
+    = link_to "Edit User", [:edit, @user]
+    = link_to "Delete User", @user, method: :delete, data: { confirm: "Are you sure?" }
+
+%h1
+%h1
+  = @user.first_name if @user.first_name
+  = @user.last_name if @user.last_name
+%p
+  %strong Company: 
+  = @user.customer.name if @user.customer.name
+  %br
+  %strong Email: 
+  = link_to( @user.email, "mailto:" + @user.email ) if @user.email
+
+- if current_user.is_master_admin? || current_user.is_volcanic?
+  %p
+    %strong Permission Level: 
+    = @user.level.titlecase
+
+- if current_user.is_master_admin? || current_user.is_volcanic?
+  
+  - if @user.is_pqsi_data_entry? || @user.is_customer_location_manager?
+  
+    %h2 Permissions
+    %p Current permissions for this user:
+    
+    - unless @user.permissions.empty?
+      %table
+        %tr
+          %th Customer
+          %th Location
+          %th NCM
+          %th Remove
+        - @user.permissions.order(:permissionable_type).each do |permission|
+          %tr
+            - case permission.permissionable_type
+            - when "ncm"
+              - @ncm = Ncm.find(permission.permissionable_id)
+              - if @ncm.customer
+                %td= @ncm.customer.name
+              - if @ncm.location
+                %td= @ncm.location.name
+              %td= @ncm.label
+              %td= link_to "Remove Permission", remove_permission_user_path(@user, :permission_id => permission.id)
+            - when "location"
+              - @location = Location.find(permission.permissionable_id)
+              %td= @location.customer.name
+              %td= @location.name
+              %td All NCMs
+              %td= link_to "Remove Permission", remove_permission_user_path(@user, :permission_id => permission.id)
+
+    %h2{:style=>"margin-top: 20px;"} Add Location Permissions
+    %p Add new permissions for this user by location:
+    %table
+      %tr
+        %th Customer
+        %th Location
+        %th NCM
+        %th Add
+      - Location.joins(:customer).scoped.order('customers.name').each do |location|
+        %tr
+          %td= location.customer.name
+          %td= location.name
+          %td
+          %td= link_to "Add Location", add_permission_user_path(@user, :permissionable_type => "location", :permissionable_id => location.id)
+
+      
+    %h2{:style=>"margin-top: 20px;"} Add NCM Permissions
+    %p Add new permissions for this user by NCM:
+    %table
+      %tr
+        %th Customer
+        %th Location
+        %th NCM
+        %th Add
+      - Ncm.joins(:location => :customer).order('customers.name, locations.name').each do |ncm|
+        %tr
+          %td= ncm.location.customer.name
+          %td= ncm.location.name
+          %td= ncm.label
+          %td= link_to "Add NCM", add_permission_user_path(@user, :permissionable_type => "ncm", :permissionable_id => ncm.id)
+
+
+
+= render "shared/left_menu"

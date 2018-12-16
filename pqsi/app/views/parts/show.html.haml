@@ -1,0 +1,12 @@
+%p
+  %b Name:
+  = @part.name
+%p
+  %b Number:
+  = @part.number
+
+= link_to 'Edit', edit_part_path(@part)
+\|
+= link_to 'Back', parts_path
+
+= render "shared/left_menu"

@@ -1,0 +1,11 @@
+#new_ncm_data_file_page
+  %h1 New CSV File
+  %p Select a file to upload and click the Submit button.
+  = form_for [@ncm, @ncm_data_file], :multipart => true do |f|
+    .field.align_right
+      = f.label :ncm_data_file_document, "Select File: "
+      = f.file_field :ncm_data_file_document
+    .action.align_right
+      = f.submit "Submit"
+
+= render "shared/left_menu"

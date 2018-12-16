@@ -1,0 +1,28 @@
+default_db: &default_db
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  pool: 5
+  username: flaggpole
+  password: f1aggp01e
+  socket: <%=
+    ['/var/run/mysqld/mysqld.sock', # Ubuntu
+    '/var/lib/mysql/mysql.sock',    # RedHat
+    '/tmp/mysql.sock'].select { |f| File.exist? f}.first %>
+
+development:
+  <<: *default_db
+  database: flaggpole_development
+
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default_db
+  database: flaggpole_test
+
+
+production:
+  <<: *default_db
+  database: flaggpole_production

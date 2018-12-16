@@ -1,0 +1,24 @@
+<%
+num = 10
+low_prior_num = 1
+min_priority = 10
+root = '/srv/www/flaggpole.com/flaggpole'
+pid_dir = root + '/' + 'tmp/pids'
+delayed_job = root + '/' + 'script/delayed_job'
+env = "/usr/bin/env HOME=/home/deploy PATH=/usr/local/bin:$PATH"
+%>
+<% num.times do |count| %>
+check process delayed_job_<%= count %>
+  with pidfile <%= pid_dir %>/delayed_job.<%= count %>.pid
+  start program = "<%= env %> <%= delayed_job %> start -i <%= count %>"
+  stop program  = "<%= env %> <%= delayed_job %> stop -i <%= count %>"
+  group delayed_job
+<% end %>
+
+<% (num...(num + low_prior_num)).each do |count| %>
+check process delayed_job_<%= count %>
+  with pidfile <%= pid_dir %>/delayed_job.<%= count %>.pid
+  start program = "<%= env %> <%= delayed_job %> start -i <%= count %> --min-priority <%= min_priority %>"
+  stop program  = "<%= env %> <%= delayed_job %> stop -i <%= count %>"
+  group delayed_job
+<% end %>

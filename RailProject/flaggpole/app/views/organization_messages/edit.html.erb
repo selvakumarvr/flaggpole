@@ -1,0 +1,7 @@
+<h2 class="page-header">Edit Message</h2>
+
+<%= form_for @message, url: portal_message_path(@message) do |form| %>
+  <%= render partial: "form", locals: { form: form } %>
+<% end %>
+
+<%= link_to 'Back', portal_messages_path %>

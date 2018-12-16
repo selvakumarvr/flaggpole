@@ -1,0 +1,35 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  language: MyText
+  event: MyText
+  urgency: MyString
+  severity: MyString
+  certainty: MyString
+  audience: MyText
+  effective: 2012-04-12 21:55:16
+  onset: 2012-04-12 21:55:16
+  expires: 2012-04-12 21:55:16
+  sender_name: MyText
+  headline: MyText
+  description: MyText
+  instruction: MyText
+  web: MyText
+  contact: MyText
+
+two:
+  language: MyText
+  event: MyText
+  urgency: MyString
+  severity: MyString
+  certainty: MyString
+  audience: MyText
+  effective: 2012-04-12 21:55:16
+  onset: 2012-04-12 21:55:16
+  expires: 2012-04-12 21:55:16
+  sender_name: MyText
+  headline: MyText
+  description: MyText
+  instruction: MyText
+  web: MyText
+  contact: MyText

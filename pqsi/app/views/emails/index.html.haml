@@ -1,0 +1,18 @@
+%h1 Emails Sent
+
+%table
+  %tr
+    %th{ :style => "width: 15%" } Sent At
+    %th{ :style => "width: 70%" } Subject
+    %th{ :style => "width: 20%" } To
+
+  - @emails.each do |email|
+    %tr
+      %td= email.created_at.in_time_zone.strftime("%I:%M %p #{email.created_at.zone} %m/%d/%y")
+      %td= link_to email.subject, email
+      %td= email.to
+%br
+%br
+= will_paginate @emails
+
+= render "shared/left_menu"

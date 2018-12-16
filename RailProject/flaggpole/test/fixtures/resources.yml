@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  resource_desc: MyText
+  mime_type: MyText
+  size: 
+  uri: MyText
+  deref_uri: MyText
+  digest: MyText
+
+two:
+  resource_desc: MyText
+  mime_type: MyText
+  size: 
+  uri: MyText
+  deref_uri: MyText
+  digest: MyText

@@ -1,0 +1,18 @@
+.float_right.no_print
+  = link_to 'Back to NCR', ncm_path(@ncm)
+
+%p
+  %b Shift:
+  = @time_entry.shift
+%p
+  %b Ncm:
+  = @time_entry.ncm_id
+%p
+  %b Hours:
+  = @time_entry.hours
+
+= link_to 'Edit', edit_time_entry_path(@time_entry)
+\|
+= link_to 'Back', time_entries_path
+
+= render "shared/left_menu"

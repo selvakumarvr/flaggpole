@@ -1,0 +1,17 @@
+.header
+  %p
+    %b To:
+    = @email.to
+    %br
+    %b From:
+    = @email.from
+    %br
+    %b Subject:
+    = @email.subject
+    %br
+    = 100.times.map{ |i| "-"}.join
+.body
+  = @email.body.html_safe
+
+= link_to 'Back', emails_path
+= render "shared/left_menu"

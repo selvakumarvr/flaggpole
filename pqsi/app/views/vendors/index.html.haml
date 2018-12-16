@@ -1,0 +1,20 @@
+%h1 Listing vendors
+
+%table
+  %tr
+    %th Name
+    %th
+    %th
+    %th
+
+  - @vendors.each do |vendor|
+    %tr
+      %td= vendor.name
+      %td= link_to 'Show', vendor
+      %td= link_to 'Edit', edit_vendor_path(vendor)
+      %td= link_to 'Destroy', vendor, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Vendor', new_vendor_path
+= render "shared/left_menu"

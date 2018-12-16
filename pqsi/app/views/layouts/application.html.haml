@@ -1,0 +1,33 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}/
+    %title PQSI
+    = stylesheet_link_tag "application"
+    = stylesheet_link_tag "print", :media => "print"
+    
+    = javascript_include_tag "application"
+    /[if IE]
+      = javascript_include_tag "html5shiv"
+    = csrf_meta_tag
+  %body
+    #content_box
+      #navigation
+        .logo
+          = image_tag("logo2.png")
+          = site_title
+        = clear      
+        = yield :navigation
+      #content{ :class => content_for?(:navigation) ? "partial_width" : "full_width" }
+
+        - if content_for?(:section_navigation)
+          .section_navigation
+            = yield :section_navigation
+      
+        - flash.each do |key, msg|
+          %div{:id => key}
+            %p= msg.html_safe
+            .clear
+
+        = yield
+    /= render "shared/zendesk"

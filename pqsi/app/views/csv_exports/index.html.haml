@@ -1,0 +1,23 @@
+%h1 CSV Exports
+
+%table
+  %tr
+    %th NCR
+    %th Filters
+    %th Generated For
+    %th Generated At
+    %th
+
+  - @csv_exports.order('created_at desc').each do |csv_export|
+    %tr
+      %td= link_to csv_export.ncm.label, csv_export.ncm if csv_export.ncm
+      %td= csv_export.filter_hash if csv_export.filter_hash.present?
+      %td= csv_export.user.name if csv_export.user
+      %td= csv_export.created_at.strftime("%m/%d/%Y at %I:%M %p")
+      %td
+        - if csv_export.file.present?
+          = link_to 'Download', csv_export
+        - else
+          CSV Export Had Error. Please export again.
+
+= render "shared/left_menu"

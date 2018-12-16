@@ -1,0 +1,67 @@
+    <div id="main"> 
+      <table>
+        <col width="40"/>
+        <col />
+        <col width="40"/>
+        <col width="400"/>
+        <col width="40" />
+        <col />
+        <col width="40" />
+        <col width="100"/>
+
+        <tr>
+          <td colspan="3">
+          	<%= image_tag("tweet.png", :size => "199x70", :alt => "Tweet local messages & deals to thousands in your neighborhood") %>
+          </td>
+          <td></td>
+          <td colspan="3">
+          	<%= image_tag("stay_in_the_know.png", :class => "center", :size => "207x70", :alt => "Stay in the know about the latest happenings in your neighborhood") %>
+          </td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td></td>
+          <td><%= link_to '', {:controller => 'pages', :action => 'get_started'}, :class => 'getstarted' %></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><%= link_to '', {:controller => 'pages', :action => 'follow_your_zip'}, :class => 'follow' %></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+    </div> <!-- end main -->
+
+    <div id="sidebar" class="visible-desktop">
+      <div id="slider">
+        <div class="viewport">
+            <ul class="overview">
+              <li>Severe thunderstorm warning remains in effect for central San Miguel County until 5.45 PM MDT.</li>
+              <li>An AMBER Alert has been issued in Tennessee for 4-month-old Zaylee Grace Fryar.  Cops say Zaylee was last with her mother, Shauna Marie Fryar.</li>
+              <li>The Elyria Apple Fest will be the third weekend in Sept. to celebrate Northern Ohio's orchards and apple-growing history.</li>
+              <li>Bumbershoot: Seattle’s Music & Arts Festival, will take place over Labor Day weekend, September 1-3, 2012 at Seattle Center</li>
+              <li>High Wind Warning in Central Montana:  strong west winds along the Rocky Mountain Front will decrease somewhat this evening before strengthening again around midnight tonight.</li>
+              <li>A large area of weather disturbance over Eastern Florida is moving west with increasing wind speed and the chance of becoming a tropical cyclone.</li>
+              <li>The Albuquerque International Balloon Fiesta, the largest hot-air balloon festival in the world, will be home to over 700 balloonists and 100,000 spectators. This is a must see event!</li>
+              <li>Napa Valley wine and cheese pairing – $15 admission fee.  At Greystone on 255 Main street this Oct. 19th from 11am – 4pm.</li>
+              <li>Lost lab puppy.  Escaped from fenced yard in brier neighborhood.  Has collar & comes by the name “Trixie”.  Please call Ralph at 555.1212. Reward!</li>
+              <li>Neighborhood pizza event!  Frankie’s Pizzeria will be hosting a neighborhood pizza party at Franklin Park this Saturday at 5pm.  Pets welcome!</li>
+            </ul>
+        </div>
+      </div>
+    </div> <!-- end sidebar -->
+
+<script type="text/javascript">
+  $(function(){
+    $('#slider').tinycarousel({
+      axis: 'y'
+      ,display: 1
+      ,controls: false
+      ,interval: true
+      ,intervaltime: 3000
+      ,animation: true
+      ,duration: 1000
+    });
+  });
+</script>

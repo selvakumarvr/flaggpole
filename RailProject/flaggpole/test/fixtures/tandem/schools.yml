@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  district: 
+  nces_id: MyString
+  name: MyString
+  yearly_events_url: MyString
+  yearly_events_ical: MyString
+  yearly_events_xcal: MyString
+  events_url: MyString
+  events_ical: MyString
+  events_xcal: MyString
+
+two:
+  district: 
+  nces_id: MyString
+  name: MyString
+  yearly_events_url: MyString
+  yearly_events_ical: MyString
+  yearly_events_xcal: MyString
+  events_url: MyString
+  events_ical: MyString
+  events_xcal: MyString

@@ -1,0 +1,25 @@
+= form_for @report do |f|
+  -if @report.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@report.errors.count, "error")} prohibited this report from being saved:"
+      %ul
+        - @report.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field.align_right
+    = f.label :name, "Name The Report"
+    = f.text_field :name
+  .field.align_right
+    = f.label :start_on
+    = f.date_select :start_on
+  .field.align_right
+    = f.label :end_on
+    = f.date_select :end_on
+  .field.align_right
+    = f.label :ncm_id
+    = f.collection_select(:ncm_id, Ncm.order("name").all, :id, :name, :prompt => true)
+  .field.align_right
+    = f.label :part_id
+    = f.collection_select(:part_id, Part.order("name").all, :id, :name, :prompt => true)
+  .actions.align_right
+    = f.submit 'Save'

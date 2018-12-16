@@ -1,0 +1,23 @@
+
+  <fieldset>
+
+      <div class="field">
+        <%= form.label :name %>
+        <%= form.text_field :name, :class => 'input-xlarge' %>
+      </div>
+
+      <div class="field">
+        <%= form.label :email, "Your Email" %>
+        <%= form.email_field :email, :class => 'input-xlarge' %>
+      </div>
+
+      <div class="field">
+        <%= form.label :body, "Questions / Comments" %>
+        <%= form.text_area :body, :class => 'input-xlarge', :rows => 10 %>
+      </div>
+
+      <div class="field">
+        <%= form.submit "Send", :class => 'btn btn-primary' %>
+      </div>
+
+  </fieldset>

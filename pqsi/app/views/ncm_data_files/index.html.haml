@@ -1,0 +1,33 @@
+#ncm_data_files_index
+  .float_right
+    =link_to "< Back to NCM", @ncm
+    =link_to "Upload New CSV File", [:new, @ncm, :ncm_data_file]
+    - if current_user.is_admin?
+      =link_to "Delete All Scan Data", [:delete_all_scans, @ncm], :confirm => "Are you sure you want to delete all scans?", :method => :delete
+  
+  %h1 NCM Data Files
+  %table
+    %tr
+      %th ID
+      %th File Name
+      %th Status
+      %th Rows Saved
+      %th Rows Already Existing
+      %th Rows With Error
+      %th Uploaded By
+      %th Uploaded On
+      
+    - @ncm_data_files.each do |data_file|
+      %tr
+        %td= data_file.id
+        %td
+          - if data_file.ncm_data_file_document.present?
+            = link_to File.basename(data_file.ncm_data_file_document.to_s).gsub(/\?.*/, ''), data_file.ncm_data_file_document.to_s
+        %td= data_file.status
+        %td= data_file.saved_row_count
+        %td= data_file.existing_row_count
+        %td= data_file.error_row_count
+        %td= data_file.created_by.name if data_file.created_by
+        %td= data_file.created_at
+
+= render "shared/left_menu"

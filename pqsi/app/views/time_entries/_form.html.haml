@@ -1,0 +1,23 @@
+.w600
+  = form_for [@ncm, @time_entry] do |f|
+    -if @time_entry.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@time_entry.errors.count, "error")} prohibited this time_entry from being saved:"
+        %ul
+          - @time_entry.errors.full_messages.each do |msg|
+            %li= msg
+
+    .field.labels_on_top.date
+      = f.label :date
+      = f.date_select :date, :order => [:day, :month, :year]
+    .field.labels_on_top
+      = f.label :shift
+      = f.select :shift, ['Day', 'Swing', 'Graveyard'],  :include_blank => true
+    .field.labels_on_top
+      = f.label :hours
+      = f.text_field :hours
+    .field.labels_on_top
+      = f.label :entry_type
+      = f.select :entry_type, [["Inspection", "inspection"], ["Receiving", "receiving"]]
+    .actions
+      = f.submit 'Save'

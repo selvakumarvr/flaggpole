@@ -1,0 +1,7 @@
+.padding_20.clubs
+  %h1 Users
+  %ul{:style => "margin-left: 20px;"}
+    - @users.each do |user|
+      %li{:style => "font-size: 16px; margin-bottom: 0.5em;"}= link_to user.name, user
+
+= render "shared/left_menu"

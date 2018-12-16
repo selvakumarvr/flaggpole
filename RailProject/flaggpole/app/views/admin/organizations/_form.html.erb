@@ -1,0 +1,40 @@
+<%= form_for([:admin, @organization], :html => { :multipart => true }) do |f| %>
+  <% if @organization.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@organization.errors.count, "error") %> prohibited this organization from being saved:</h2>
+
+      <ul>
+      <% @organization.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :line1 %>
+  <%= f.text_field :line1 %>
+
+  <%= f.label :line2 %>
+  <%= f.text_field :line2 %>
+
+  <%= f.label :logo %>
+  <%= image_tag @organization.logo.url(:medium) %>
+  <%= f.file_field :logo %>
+
+  <%= f.label :delete_logo %>
+  <%= f.check_box :delete_logo %>
+
+  <%= f.fields_for :organization_links do |ol| %>
+    <%#= render "question_fields", :f => builder %>
+    <%= ol.label :name, "Link" %>
+    <%= ol.text_field :name, :placeholder => 'Link name' %>
+    <%= ol.text_field :url, :placeholder => 'URL' %>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

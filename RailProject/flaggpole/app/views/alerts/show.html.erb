@@ -1,0 +1,59 @@
+<!--Load the AJAX API-->
+<%= javascript_include_tag 'http://www.google.com/jsapi'%>
+<%= javascript_include_tag 'http://maps.googleapis.com/maps/api/js?key=AIzaSyCdebMDXfCiaRqf8W2Z0oBDQOIBSRtzwMA&sensor=false'%>
+<script type="text/javascript">
+  google.load('visualization', '1', {'packages':['corechart', 'table', 'geomap']});
+</script>
+
+<script type="text/javascript">
+  var geo_ids = <%= raw @alert.geo_ids.to_json %>;
+
+  $(document).ready(function(){
+    initMap(geo_ids);
+  });
+</script>
+
+<p id="notice"><%= notice %></p>
+
+<% info = @alert.infos.first %>
+<% area = info.areas.first %>
+
+<div class="cap-alert">
+	<h2 class="page-header"><%= info.event %></h2>
+
+	<div class="map">
+		<div id="map_canvas"></div>
+	</div>
+
+	<div class="text">
+		<p><b>Effective:</b> <%= info.effective.in_time_zone(info.alert.utc_offset).strftime("%b %d %Y %I:%M %p %Z") %></p>
+		<p><b>Expires:</b> <%= info.expires.in_time_zone(info.alert.utc_offset).strftime("%b %d %Y %I:%M %p %Z") %></p>
+
+		<h4>Warning:</h4>
+		<p><b>Certainty:</b> <%= info.certainty %></p>
+		<p><b>Urgency:</b> <%= info.urgency %></p>
+		<p><b>Severity:</b> <%= info.severity %></p>
+
+		<p><%= info.description %></p>
+		<p><%= info.instruction %></p>
+		<p><b>Locations Affected:</b> <%= area.area_desc %></p>
+		<p>
+			<b>ZIP Codes Affected:</b>
+			<ul>
+				<% @alert.twitter_zips.each do |tz| %>
+					<li>
+						<% if tz.registered %>
+							<%= link_to "#{tz.zip} - #{tz.city}, #{tz.state}", "http://twitter.com/#{tz.zip}" %>
+						<% else %>
+							<%= "#{tz.zip} - #{tz.city}, #{tz.state}" %>
+						<% end %>
+					</li>
+				<% end %>
+			</ul>
+		</p>
+		<% if info.web %>
+			<p><b>For more information visit:</b> <%= link_to info.web, info.web %></p>
+		<% end %>
+	</div>
+
+</div>

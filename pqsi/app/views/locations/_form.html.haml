@@ -1,0 +1,39 @@
+.w600
+  = form_for @location do |f|
+    -if @location.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@location.errors.count, "error")} prohibited this location from being saved:"
+        %ul
+          - @location.errors.full_messages.each do |msg|
+            %li= msg
+
+    .field.labels_on_top
+      = f.label :name
+      = f.text_field :name
+
+    .field.labels_on_top
+      = f.label :address_1
+      = f.text_field :address_1
+
+    .field.labels_on_top
+      = f.label :address_2
+      = f.text_field :address_2
+
+    .field.labels_on_top.w290.mr10.float_left
+      = f.label :city
+      = f.text_field :city
+
+    .field.labels_on_top.w90.mr10.float_left
+      = f.label :state
+      = f.select :state, ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV','NY', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT', 'WA', 'WI', 'WV', 'WY'],  :include_blank => true
+
+    .field.labels_on_top.w200.float_left
+      = f.label :zip
+      = f.text_field :zip
+    = clear
+    - if current_user.is_master_admin? || current_user.is_volcanic?
+      .field.labels_on_top
+        = f.label :customer
+        = f.collection_select(:customer_id, Customer.order("name").all, :id, :name, :prompt => true)
+    .actions.labels_on_top
+      = f.submit 'Save'

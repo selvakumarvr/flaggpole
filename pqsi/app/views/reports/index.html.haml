@@ -1,0 +1,42 @@
+%h1 Listing reports
+
+%table
+  %tr
+    %th Report
+    %th Date Range
+    %th Ncm
+    %th Part
+    %th
+    %th
+    %th
+
+  - @reports.each do |report|
+    %tr
+      %td
+        - if report.name.blank?
+          = link_to 'Show Report', report
+        - else
+          = link_to report.name, report
+      %td
+        = report.start_on 
+        = " - "
+        = report.end_on
+      %td
+        - if report.ncm_id
+          = report.ncm_id
+          = " - "
+          = Ncm.find(report.ncm_id).ncm_number
+      %td
+        - if report.part_id
+          = report.part_id
+          = " - "
+          = Part.find(report.part_id).name
+      
+      %td= link_to 'Edit', edit_report_path(report)
+      %td= link_to 'Destroy', report, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Report', new_report_path
+
+= render "shared/left_menu"

@@ -1,0 +1,16 @@
+= form_for @csv_export do |f|
+  -if @csv_export.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@csv_export.errors.count, "error")} prohibited this csv_export from being saved:"
+      %ul
+        - @csv_export.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :file
+    = f.text_field :file
+  .field
+    = f.label :generated_by_id
+    = f.number_field :generated_by_id
+  .actions
+    = f.submit 'Save'

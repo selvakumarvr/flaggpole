@@ -1,0 +1,33 @@
+.float_right
+  = link_to 'New Scan', new_scan_path
+%h1 Listing scans
+
+%table
+  %tr
+    %th Part
+    %th Quantity
+    %th Description
+    %th Serial
+    %th Rejects
+    %th Scanned on
+    %th
+    %th
+    %th
+
+  - @scans.each do |scan|
+    %tr
+      %td= scan.part_id
+      %td= scan.quantity
+      %td= scan.description
+      %td= scan.serial
+      %td= scan.rejects
+      %td= scan.scanned_on
+      %td= link_to 'Show', scan
+      %td= link_to 'Edit', edit_scan_path(scan)
+      %td= link_to 'Destroy', scan, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+
+
+= render "shared/left_menu"

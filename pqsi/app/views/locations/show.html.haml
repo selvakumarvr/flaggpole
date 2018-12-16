@@ -1,0 +1,26 @@
+.float_right
+  = link_to 'Edit Location', edit_location_path(@location)
+  
+  = link_to 'Delete Location', @location, :confirm => 'Are you sure?', :method => :delete
+  
+  = link_to 'Back to Customer', customer_path(@location.customer)
+
+%h1= @location.name
+
+%p
+  %strong Address:
+  %br
+  = @location.address_1
+  = @location.address_2
+  %br
+  = @location.city
+  = @location.state
+  = @location.zip
+  %br
+  = link_to "View on Google Maps", "http://maps.google.com/maps?q=" + @location.address_1 + " " + @location.address_2 + " "  + @location.city + " "  + @location.state + " "  + @location.zip
+  
+%p
+  %b Customer:
+  = @location.customer.name
+
+= render "shared/left_menu"

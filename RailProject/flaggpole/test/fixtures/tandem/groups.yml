@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  school: 
+  key: MyString
+  name: MyString
+  events_url: MyString
+  events_ical: MyString
+  events_xcal: MyString
+
+two:
+  school: 
+  key: MyString
+  name: MyString
+  events_url: MyString
+  events_ical: MyString
+  events_xcal: MyString

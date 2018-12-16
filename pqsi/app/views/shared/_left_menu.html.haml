@@ -1,0 +1,42 @@
+- content_for :navigation do
+  - if current_user
+    %ul
+      %li= link_to "Dashboard", root_path, :class => "first last"
+  - if current_user
+    %ul
+      %li= link_to "NCRs", ncms_path, :class => "first"
+      / %li= link_to "Parts", parts_path
+      - if can? :manage, Customer
+        %li= link_to "Customers", customers_path
+      - if can? :read, CsvExport
+        %li= link_to "CSV Exports", csv_exports_path
+      - if can? :read, PdfExport
+        %li= link_to "PDF Exports", pdf_exports_path
+      - if can? :manage, Email
+        %li= link_to "Emails", emails_path, :class => "last"
+
+  %ul
+    - if current_user
+      %li= link_to "My Account", user_path(current_user), :class => "first"
+      / %li= link_to "Training Videos", "#"
+      %li= link_to "Log Out", destroy_user_session_path, :class => "last"
+    - else
+      %li= link_to "Log In", new_user_session_path
+
+  .contact
+    %p{ :style => "line-height: 1.5; margin-top: 20px;"}
+      %b Ph:
+      248-577-1356
+      %br
+      %b Fx:
+      248-577-1398
+      %br
+      %b Em:
+      = link_to "info@pqsiinc.com", "mailto:info@pqsiinc.com", :style=> "color: black;"
+
+  .credits
+    %p{ :style => "margin-top: 20px;" }
+      Copyright PQSI, Inc.
+    %p{ :style => "font-size: 11px; margin-top: 5px;" }
+      Powered by
+      = link_to "Volcanic", "http://www.volcanicmarketing.com", :style => "color: black"

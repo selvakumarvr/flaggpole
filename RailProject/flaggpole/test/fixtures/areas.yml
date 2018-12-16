@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  area_desc: MyText
+  altitude: MyString
+  ceiling: MyString
+
+two:
+  area_desc: MyText
+  altitude: MyString
+  ceiling: MyString

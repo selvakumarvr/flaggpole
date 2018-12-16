@@ -1,0 +1,80 @@
+.fieldWithErrors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+.formError {
+  color: red;
+}
+
+/* General Tag Classes */
+body, input, textarea, td {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+	line-height: 1.2em;
+}
+textarea, input {
+	font-size: 1em;
+	padding: 3px;
+}
+body {
+	background-color: #f5f6f1;
+	margin: 0;
+	padding: 0;
+}
+h1 {
+	font-size: 1.5em;
+  color: #38c5ee;
+}
+h3 {
+  color: #38c5ee;
+}
+
+/* page layout */
+#wrapper {
+	width: 960px;
+	margin: 15px auto;
+	text-align: left;
+}
+
+#steps {
+  padding: 0;
+}
+
+#steps li {
+  list-style: none;
+  font-weight: bold;
+  height: 30px;
+}
+
+#steps li span {
+  color: #fff;
+  background-color: #d8ef86;
+  padding: 6px 10px;
+}
+
+.sectionbox {
+  background-color: white;
+  border: solid #d9d9d9 1px;
+  padding: 5px;
+}
+
+.labeltext {
+  font-size: smaller;
+  color: #aaa;
+}
+
+input.zip {
+  width: 10em;
+}
+
+#message {
+  width: 30em;
+  height: 4em;
+}
+
+#map_canvas {
+  width: 480px;
+  height: 320px;
+}

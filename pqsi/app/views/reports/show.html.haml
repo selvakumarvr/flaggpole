@@ -1,0 +1,55 @@
+%p
+  %b Start on:
+  = @report.start_on
+  %br/
+  %b End on:
+  = @report.end_on
+%p
+  %b Ncm:
+  = @report.ncm.ncm_number
+%p
+  %b Part:
+  = @report.part_id
+
+:javascript
+  $(function(){
+    new Highcharts.Chart({
+      chart: {
+        renderTo: "rejects_chart"
+      },
+      title: {
+        text: "Rejects by Day"
+      },
+      xAxis: {
+        type: "datetime"
+      },
+      yAxis: {
+        title: {
+          text: "Quantity"
+        }
+      },
+      tooltip: {
+        formatter: function() {
+          return Highcharts.dateFormat("%B %e, %Y", this.x) + ': ' + this.y + " rejects";
+        }
+      },
+      series: [{
+        name: "Rejects",
+        pointInterval: #{ 1.day * 1000 },
+        pointStart: #{ 4.weeks.ago.to_i * 1000 },
+        data: #{ (@report.start_on..@report.end_on).map{ |date| Scan.rejects_on(date, @ncm, @part)}.inspect }
+      }, {
+        name: "Total Scanned",
+        pointInterval: #{ 1.day * 1000 },
+        pointStart: #{ 4.weeks.ago.to_i * 1000 },
+        data: #{ (@report.start_on..@report.end_on).map{ |date| Scan.total_scanned_on(date, @ncm, @part)}.inspect }
+      }]
+    });
+  });
+#rejects_chart{ :style => "width: 100%; height: 300px;" }
+
+= link_to 'Edit', edit_report_path(@report)
+\|
+= link_to 'Back', reports_path
+
+= render "shared/left_menu"

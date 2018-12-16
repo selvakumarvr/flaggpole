@@ -1,0 +1,127 @@
+.ncm_form
+  = form_for @ncm, :html => { :multipart => true } do |f|
+    -if @ncm.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@ncm.errors.count, "error")} prohibited this ncm from being saved:"
+        %ul
+          - @ncm.errors.full_messages.each do |msg|
+            %li= msg
+
+    .w45pc.float_left.mr20
+
+      .field.labels_on_top
+        = f.label :job_id, "Is this NCR based on an existing job? Select to pre-populate fields."
+        -if :id.present?
+          = f.collection_select(:job_id, @jobs, :id, :name, :include_blank => true)
+
+      .field.labels_on_top.w30pc.float_left.mr10
+        = f.label :ncm_number, "NCR #"
+        = f.text_field :ncm_number
+    
+      .field.labels_on_top.w60pc.float_left
+        = f.label :description, "Defect Description"
+        = f.text_field :description
+    
+      = clear
+
+      .field.labels_on_top.w50pc.float_left.mr10
+        = f.label :location_id, "Where is the sort being performed?"
+        -if :id.present?
+          = f.collection_select(:location_id, @locations, :id, :customer_location, :prompt => true)
+
+      .field.labels_on_top.w45pc.float_left
+        = f.label :temporary_location, "or Enter New Vendor + Location"
+        = f.text_field :temporary_location
+      
+      .field.labels_on_top
+        = f.label :clipboard
+        = f.text_field :clipboard
+    
+      .field.labels_on_top
+        = f.label :sqe_pqe, "SQE / PQE"
+        = f.text_field :sqe_pqe
+
+      .field.labels_on_top
+        = f.label :mi_name, "MI Name"
+        = f.text_field :mi_name
+    
+      = clear
+    
+      .field.labels_on_top
+        = f.label :work_instructions_document
+        = f.file_field :work_instructions_document
+    
+      .field.labels_on_top
+        = f.label :work_instructions, "Work Instructions"
+        = f.text_area :work_instructions
+      
+      .field.labels_on_top
+        = f.label :part_name, "Part Name"
+        = f.text_field :part_name
+      
+    .w45pc.float_left.mr20
+    
+      .field.labels_on_top
+        = f.label :report_emails, "Report Emails (separate by commas):"
+        = f.text_field :report_emails
+  
+      - if can? :manage, Customer
+        .field.labels_on_top
+          = f.label :customer, "Customer"
+          = f.collection_select(:customer_id, Customer.order("name").all, :id, :name, :prompt => true)
+    
+      .field.labels_on_top
+        = f.label "Cost Center or Supplier?"
+      
+        .radio_button
+          = f.radio_button :cost_center_type, "Cost Center"
+          = f.label :cost_center_type_cost_center, "Cost Center"
+      
+        .radio_button
+          = f.radio_button :cost_center_type, "Supplier"
+          = f.label :cost_center_type_supplier, "Supplier"
+    
+      .field.labels_on_top.cost_center_name
+        = f.label :cost_center_name, "Cost Center Name"
+        = f.text_field :cost_center_name
+  
+      .field.labels_on_top.supplier_name
+        = f.label :supplier_name, "Supplier Name"
+        = f.text_field :supplier_name
+  
+      .field.labels_on_top.supplier_code
+        = f.label :supplier_code, "Supplier Code"
+        = f.text_field :supplier_code
+    
+      .field.labels_on_top.supplier_address
+        = f.label :supplier_address, "Supplier Address"
+        = f.text_field :supplier_address
+    
+      .field.labels_on_top.w40pc.float_left.mr20.supplier_city
+        = f.label :supplier_city, "Supplier City"
+        = f.text_field :supplier_city
+    
+      .field.labels_on_top.w20pc.float_left.mr20.supplier_state
+        = f.label :supplier_state
+        = f.select :supplier_state, ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV','NY', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT', 'WA', 'WI', 'WV', 'WY'],  :include_blank => true
+      
+      .field.labels_on_top.w30pc.float_left.supplier_zip
+        = f.label :supplier_zip, "Supplier Zip"
+        = f.text_field :supplier_zip
+        
+      = clear
+        
+      .field.labels_on_top.supplier_contact
+        = f.label :supplier_contact, "Supplier Contact"
+        = f.text_field :supplier_contact
+      
+      .field.labels_on_top.supplier_phone
+        = f.label :supplier_phone, "Supplier Phone"
+        = f.text_field :supplier_phone
+    
+    
+    = clear
+    %hr
+    .actions.labels_on_top
+      = f.submit 'Save NCR & Continue', :style => "font-size: 24px;"
+

@@ -1,0 +1,64 @@
+.customer
+
+  .float_right
+    = link_to "Summary Report", summary_report_customer_path(@customer)
+    = link_to 'Edit', edit_customer_path(@customer) 
+    = link_to 'Back', customers_path
+  
+  %h1= @customer.name
+
+  .section
+    %h2.section_title
+      NCMs
+      = link_to "Add New NCM", new_ncm_path(:customer_id => @customer.id)
+    .section_body
+      - if @customer.ncms.any?
+        %ul
+          - @customer.ncms.each do |ncm|
+            %li= link_to ncm.label, ncm
+      - else
+        %p Sorry, no ncms added yet.
+  .section
+    %h2.section_title
+      Users
+      = link_to "Add New User", new_user_path(:customer_id => @customer.id)
+    .section_body
+      - if @customer.users.any?
+        %ul
+          - @customer.users.each do |user|
+            %li= link_to user.name, user
+      - else
+        %p Sorry, no users added yet.
+        
+
+  .section
+    %h2.section_title
+      Locations
+      = link_to "Add New Location", new_location_path(:customer_id => @customer.id)
+    .section_body
+      - if @customer.locations.any?
+        %ul
+          - @customer.locations.each do |location|
+            %li
+              - if !location.name.blank?
+                = link_to location.name, location
+              - elsif !location.city.blank? && !location.state.blank?
+                = link_to location.city + " " + location.state, location
+              - else
+                = link_to "Location #{location.id.to_s}", location
+      - else
+        %p Sorry, no locations added yet.
+
+  .section
+    %h2.section_title
+      Vendors
+      = link_to "Assign New Vendor", select_vendors_customer_path(@customer)
+    .section_body
+      - if @customer.vendors.any?
+        - @customer.vendors.each do |vendor|
+          = link_to vendor.name, vendor
+      - else
+        %p Sorry, no vendors added yet.
+        
+
+= render "shared/left_menu"

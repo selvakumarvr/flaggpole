@@ -1,0 +1,12 @@
+%h1 Select a Customer to Add as a Vendor
+
+%table
+  %tr
+    %th Company
+
+  - @customers.each do |customer|
+    %tr
+      %td= link_to customer.name, assign_vendor_customer_path(@customer, :vendor_id => customer.id ), :method => :post
+%br
+
+= render "shared/left_menu"

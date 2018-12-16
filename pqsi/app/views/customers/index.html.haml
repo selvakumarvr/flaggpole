@@ -1,0 +1,19 @@
+.float_right
+  = link_to 'Add New Customer', new_customer_path
+%h1 Customers
+
+%table
+  %tr
+    %th Company
+    %th Recent NCMs
+
+  - @customers.each do |customer|
+    %tr
+      %td= link_to customer.name, customer
+      %td
+        %ul
+          - customer.ncms.limit(5).each do |ncm|
+            %li= link_to ncm.label, ncm
+%br
+
+= render "shared/left_menu"

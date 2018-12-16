@@ -1,0 +1,152 @@
+<p>
+  Below you will find sort data from Pyramid Quality Solutions &amp; Innovations 
+  for the NCR and date(s) shown. More details can be found at www.pqsiapp.com.
+  For questions/concerns please reply to reports@pqsiinc.com. Thank you.
+</p>
+
+<h1>
+  PQSI Daily Report for NCR: <br />
+  <%= @ncm.label %>
+</h1>
+
+<% if @total_inspected > 0 %>
+
+  <p>
+    <b>Defect Description:</b>
+    <%= @ncm.description %>
+    <br />
+  
+    <b>Customer:</b>
+    <%= @ncm.customer.name if @ncm.customer %>
+    <br />
+  
+    <b>SQE / PQE:</b>
+    <%= @ncm.sqe_pqe %>
+    <br>
+  
+    <b>Additional Name:</b>
+    <%= @ncm.mi_name %>
+    <br>
+
+  </p>
+  <p>
+    <b>Inspected:</b>
+    <%= @total_inspected %>
+    <br>
+    
+    <b>Total Rejects:</b>
+    <%= @total_rejects %>
+    <br>
+    
+    <b>PPM Rate</b>
+    <%= @ncm.overall_ppm_rate(@date, @date, @total_rejects, @total_inspected) %>
+  </p>
+  <p>
+    <b>Total Day Hours:</b>
+    <%= @ncm.day_hours(@date, @date).to_s %>
+    <br>
+
+    <b>Total Second Hours:</b>
+    <%= @ncm.swing_hours(@date, @date).to_s %>
+    <br>
+
+    <b>Total Third Hours:</b>
+    <%= @ncm.graveyard_hours(@date, @date).to_s %>
+    <br>
+    
+    <b>Total Receiving Hours:</b>
+    <%= @ncm.receiving_hours(@date, @date).to_s %>
+  </p>
+  
+  <hr/>
+
+<% end %>
+
+<h2>Sort Details</h2>
+<table>
+  <tr>
+    <th>Data ID</th>
+    <th>Row ID</th>
+    <th>Inspection Date</th>
+    <th>Lot Number</th>
+    <th>Serial Number</th>
+    <th>IPN</th>
+    <th>Mfg. Date</th>
+    <th>Part Number</th>
+    <th># Inspected</th>
+    <th># Rejected</th>
+    <th>Rejects Breakdown</th>
+    <th>PPM Rate</th>
+    <th>Comment</th>
+  </tr>
+  
+  <% if @scans %>
+    <% @scans.limit(1000).each do |scan| %>
+      <tr>
+        <td><%= scan.id %></td>
+        <td><%= scan.row_id if scan.row_id %></td>
+        <td><%= scan.scanned_on.strftime("%m/%d/%y") %></td>
+        <td><%= scan.lot_number.to_s %></td>
+        <td><%= scan.serial %></td>
+        <td><%= scan.ipn %></td>
+        <td><%= scan.manufacturing_date.strftime("%m/%d/%y") if scan.manufacturing_date %></td>
+        <td><%= scan.part_number %></td>
+        <td><%= scan.quantity %></td>
+        <td><%= scan.rejects %></td>
+        <td>
+          <% unless scan.reject_reason_1_quantity.blank? || scan.reject_reason_1_quantity == 0 %>
+            <% if scan.reject_reason_1_label %>
+              <%= scan.reject_reason_1_label %>
+            <% else %>
+              Default
+            <% end %>
+            <%= ": " %>
+            <%= scan.reject_reason_1_quantity %>
+            <br>
+          <% end %>
+          
+          <% unless scan.reject_reason_2_quantity.blank? || scan.reject_reason_2_quantity == 0 %>
+            <%= scan.reject_reason_2_label if scan.reject_reason_2_label %>
+            <%= ": " %>
+            <%= scan.reject_reason_2_quantity %>
+            <br>
+          <% end %>
+          
+          <% unless scan.reject_reason_3_quantity.blank? || scan.reject_reason_3_quantity == 0 %>
+            <%= scan.reject_reason_3_label if scan.reject_reason_3_label %>
+            <%= ": " %>
+            <%= scan.reject_reason_3_quantity %>
+            <br>
+          <% end %>
+          
+          <% unless scan.reject_reason_4_quantity.blank? || scan.reject_reason_4_quantity == 0 %>
+            <%= scan.reject_reason_4_label %>
+            <%= ": " %>
+            <%= scan.reject_reason_4_quantity %>
+            <br>
+          <% end %>
+          
+          <% unless scan.reject_reason_5_quantity.blank? || scan.reject_reason_5_quantity == 0 %>
+            <%= scan.reject_reason_5_label %>
+            <%= ": " %>
+            <%= scan.reject_reason_5_quantity %>
+          <% end %>
+        </td>
+        
+        <td>
+          <%= ((scan.rejects * 1.0 / scan.quantity) * 1000000).round %>
+        </td>
+        
+        <td>
+          <% unless scan.comments.blank? %>
+            <%= link_to "View Comment", "#comment_#{scan.id}" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  <% else %>
+    <tr>
+      <td><%= "No data entered yet." %></td>
+    </tr>
+  <% end %>
+</table>

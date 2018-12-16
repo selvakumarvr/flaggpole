@@ -1,0 +1,26 @@
+.ncm_form
+  = form_for @ncm, :html => { :multipart => true } do |f|
+    -if @ncm.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@ncm.errors.count, "error")} prohibited this ncm from being saved:"
+        %ul
+          - @ncm.errors.full_messages.each do |msg|
+            %li= msg
+
+    .field.labels_on_top.w60pc.float_left
+      = f.label :day_hours, "Day Hours:"
+      = f.text_field :day_hours
+
+    .field.labels_on_top.w60pc.float_left
+      = f.label :swing_hours, "Swing Hours:"
+      = f.text_field :swing_hours
+
+    .field.labels_on_top.w60pc.float_left
+      = f.label :graveyard_hours, "Graveyard Hours:"
+      = f.text_field :graveyard_hours
+    
+    = clear
+    %hr
+    .actions.labels_on_top
+      = f.submit 'Update Hours', :style => "font-size: 24px;"
+

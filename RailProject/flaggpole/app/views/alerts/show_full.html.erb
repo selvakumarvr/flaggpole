@@ -1,0 +1,76 @@
+<!--Load the AJAX API-->
+<%= javascript_include_tag 'http://www.google.com/jsapi'%>
+<%= javascript_include_tag 'http://maps.googleapis.com/maps/api/js?key=AIzaSyCdebMDXfCiaRqf8W2Z0oBDQOIBSRtzwMA&sensor=false'%>
+<script type="text/javascript">
+  google.load('visualization', '1', {'packages':['corechart', 'table', 'geomap']});
+</script>
+<%= javascript_include_tag 'geoxml3', 'alert_map' %>
+
+<script type="text/javascript">
+  var geo_ids = <%= raw @alert.geo_ids.to_json %>;
+
+  $(document).ready(function(){
+    initMap(geo_ids);
+  });
+</script>
+
+<div id="map_canvas"></div>
+
+<p id="notice"><%= notice %></p>
+
+<h1>Alert</h1>
+<% @alert.attributes.each_pair do |name, value| %>
+  <p><b><%= name %>:</b> <%= value %></p>
+<% end %>
+
+<h1>Info</h1>
+<% info = @alert.infos.first %>
+<% info.attributes.each_pair do |name, value| %>
+  <p><b><%= name %>:</b> <%= value %></p>
+<% end %>
+
+<h1>Event Codes</h1>
+<% ecs = info.event_codes %>
+<% ecs.each do |ec| %>
+  <p><b><%= ec.value_name %>:</b> <%= ec.value %></p>
+<% end %>
+
+<h1>Parameters</h1>
+<% params = info.parameters %>
+<% params.each do |p| %>
+  <p><b><%= p.value_name %>:</b> <%= p.value %></p>
+<% end %>
+
+<h1>Resources</h1>
+<% resources = info.resources %>
+<% resources.each do |r| %>
+  <% r.attributes.each_pair do |name, value| %>
+    <p><b><%= name %>:</b> <%= value.is_a?(String) ?  raw(auto_link(value)) : value %></p>
+  <% end %>
+<% end %>
+
+<h1>Area</h1>
+<% area = info.areas.first %>
+<% area.attributes.each_pair do |name, value| %>
+  <p><b><%= name %>:</b> <%= value %></p>
+<% end %>
+
+<h1>Geocodes</h1>
+<% geocodes = area.geocodes %>
+<% geocodes.each do |g| %>
+  <p><b><%= g.value_name %>:</b> <%= g.value %></p>
+<% end %>
+
+<h1>Circles</h1>
+<% circles = area.circles %>
+<% circles.each do |c| %>
+  <p><b>circle:</b> <%= c.circle %></p>
+<% end %>
+
+<h1>Polygons</h1>
+<% polygons = area.polygons %>
+<% polygons.each do |p| %>
+  <p><b>polygon:</b> <%= p.polygon %></p>
+<% end %>
+
+<%= link_to 'Back', alerts_path %>

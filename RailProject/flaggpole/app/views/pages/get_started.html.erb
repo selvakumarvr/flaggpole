@@ -1,0 +1,13 @@
+<h2 class="page-header">Get Started</h2>
+
+<p>
+TwitZIP provides a very cost effective means for local small businesses and organizations to reach their community with promotions, events, and special offers that are relevant to your community.  These promotional messages can reach the community surrounding your business a moments notice to help drive sales, increase foot traffic or just increase your presence among your best customers.
+</p>
+
+<p>
+Our interactive business registration page is coming soon.  In the meantime, if you would like to send out a special promotion to individuals in your local zip code area, please contact us directly and we would be happy to assist you.
+</p>
+
+<%= form_for @message, url: {controller: 'pages', action: 'create_message'} do |form| %>
+  <%= render partial: "contact/form", locals: { form: form } %>
+<% end %>

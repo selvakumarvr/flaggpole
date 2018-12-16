@@ -1,0 +1,49 @@
+# view
+
+  = smartgrid collection: @models, paginate: 100, grid_url: grid_builder_resources_path(@models) do |model|
+    = smartgrid_column filter_type: "string", sortable: true, header: "Title Of Column", param_name: "param_name" do
+      = link_to some_path(model), model.value
+    = smartgrid_column filter_type: "string", sortable: true, header: "Title Of Column", param_name: "param_name" do
+      = link_to some_path(model), model.value
+    
+# controller
+
+  def grid_builder
+  
+  end
+
+# helper
+
+  def smartgrid :collection => models, :paginate => false
+    content_tag :table do
+      content_tag :tr do
+        content_tag :th do
+          # TODO: code to output the title, filters and related javascript
+        end
+      end
+      
+      models.each do |model|
+        yeild
+      end
+    end
+  end
+  
+  def smartgrid_column :filter_type => nil, :sortable => false, :header => nil, :param_name => :nil
+    
+    if filter_type.nil?
+      # TODO: 
+    elsif filter_type === "string"
+      # TODO: 
+    elsif filter_type.is_array?
+      
+      if filter_type["type"] == "select"
+        
+        # TODO: filter_type should accept the following in the hash: select options: Array/Hash, allow_multiple: true/false
+      elsif filter_type["type"] == "checkbox"
+        
+        # TODO: filter_type should accept the following in the hash: options: Array/Hash, 
+      end
+      
+    end
+    
+  end

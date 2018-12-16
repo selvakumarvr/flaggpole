@@ -1,0 +1,23 @@
+%h1 PDF Exports
+
+%table
+  %tr
+    %th NCR
+    %th Filters
+    %th Generated For
+    %th Generated At
+    %th
+
+  - @pdf_exports.order('created_at desc').each do |pdf_export|
+    %tr
+      %td= link_to pdf_export.ncm.label, pdf_export.ncm if pdf_export.ncm
+      %td= pdf_export.filter_hash if pdf_export.filter_hash.present?
+      %td= pdf_export.user.name if pdf_export.user
+      %td= pdf_export.created_at.strftime("%m/%d/%Y at %I:%M %p")
+      %td
+        - if pdf_export.file.present?
+          = link_to 'Download', pdf_export
+        - else
+          PDF Export Had Error. Please export again.
+
+= render "shared/left_menu"

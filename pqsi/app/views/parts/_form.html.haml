@@ -1,0 +1,17 @@
+= form_for @part do |f|
+  -if @part.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@part.errors.count, "error")} prohibited this part from being saved:"
+      %ul
+        - @part.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field.labels_on_top
+    = f.label :name, "Part Name"
+    = f.text_field :name
+  .field.labels_on_top
+    = f.label :number, "Part Number"
+    = f.text_area :number
+  .actions.labels_on_top
+    = f.submit 'Save'
+

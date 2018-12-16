@@ -1,0 +1,24 @@
+%p
+  %b Part:
+  = @scan.part_id
+%p
+  %b Quantity:
+  = @scan.quantity
+%p
+  %b Description:
+  = @scan.description
+%p
+  %b Lot Traceability:
+  = @scan.serial
+%p
+  %b Rejects:
+  = @scan.rejects
+%p
+  %b Scanned on:
+  = @scan.scanned_on
+
+= link_to 'Edit', edit_scan_path(@scan)
+\|
+= link_to 'Back', scans_path
+
+= render "shared/left_menu"

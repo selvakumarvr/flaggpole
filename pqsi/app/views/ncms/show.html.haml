@@ -1,0 +1,303 @@
+.ncm_show_page
+  .action_menu.no_print
+    - if can? :read, @ncm
+      = link_to "Enter Data", new_scan_path(:ncm_id => @ncm.id )
+      = link_to "Import Data", [@ncm, :ncm_data_files]
+      = link_to 'NCR Hours', ncm_time_entries_path(@ncm)
+    = link_to 'View All NCRs', ncms_path
+    - if can? :manage, @ncm
+      - if @ncm.active?
+        = link_to 'Archive', archive_ncm_path(@ncm), method: :post
+      - else
+        = link_to 'Un-Archive', unarchive_ncm_path(@ncm), method: :post
+      = link_to 'Edit NCR', edit_ncm_path(@ncm)
+      = link_to 'Delete NCR', @ncm, :confirm => 'Are you sure?', :method => :delete
+    = link_to "Print Page", "javascript:window.print();"
+
+  %h1
+    = @ncm.ncm_number
+    = " - "
+    = @ncm.description
+
+  .sort_and_filter{ :style => "margin-bottom: 20px; background: #eee; border: 1px solid #ccc; padding: 10px"}
+    = form_for @ncm, :url => ncm_path(@ncm), :html => { :method => :get } do |f|
+      %table{:border => "0", :style => "width: 700px;"}
+        %tr
+          %td{ :colspan => "4", :style => "padding: 5px; border: 0; background: transparent;" }
+            %b Date Range:
+            = f.date_select :report_start_date, :order => [:month, :day, :year]
+            = " to "
+            = f.date_select :report_end_date, :order => [:month, :day, :year]
+        %tr
+          %td{ :style => "padding: 5px; border: 0; background: transparent;" }
+            %b Lot Number:
+            %br
+            = text_field_tag :lot_number, (@lot_number.present? ? @lot_number : nil)
+          %td{ :style => "padding: 5px; border: 0; background: transparent;" }
+            %b Serial Number:
+            %br
+            = text_field_tag :serial_number, (@serial_number.present? ? @serial_number : nil)
+          %td{ :style => "padding: 5px; border: 0; background: transparent;" }
+            %b Part Number:
+            %br
+            = text_field_tag :part_number, (@part_number.present? ? @part_number : nil)
+          %td{ :style => "padding: 5px; border: 0; background: transparent;" }
+            %b Reject Reason:
+            %br
+            = text_field_tag :reject_reason, (@reject_reason.present? ? @reject_reason : nil)
+        %tr
+          %td{ :colspan => "4", :style => "padding: 2px; border: 0; background: transparent;" }= f.submit 'Filter Report'
+
+
+  .ncm_details
+    %table
+      %tr
+        %td{:style => "border: 0; width: 33.3%"}
+          %p
+            %b Defect:
+            = @ncm.description
+
+            %br
+
+            %b Customer:
+            - if @ncm.customer && @ncm.customer.name
+              = @ncm.customer.name
+
+            %br
+
+            %b Plant:
+            - if @ncm.location && @ncm.location.name
+              = @ncm.location.name
+            - elsif @ncm.temporary_location.present?
+              = @ncm.temporary_location
+            - else
+              %em Plant not selected
+
+            %br
+
+            %b SQE / PQE:
+            = @ncm.sqe_pqe
+
+            %br
+
+            %b MI Name:
+            = @ncm.mi_name
+
+            %br
+
+            %b Instructions:
+            = @ncm.work_instructions
+            %br
+            - if @ncm.work_instructions_document?
+              %b Attachment:
+              = link_to "Download", @ncm.work_instructions_document_url if @ncm.work_instructions_document?
+            = clear
+            - if @ncm.clipboard.present?
+              %b Clipboard:
+              = @ncm.clipboard
+        %td{:style => "border: 0; width: 33.3%"}
+          %p
+            %b Inspected:
+            = @total_inspected
+
+            %br
+            %b Rejected:
+            = @total_rejects
+
+            %br
+            %b PPM Rate
+            = @overall_ppm_rate
+
+            %br
+            %br
+            %b Day Hours:
+            = Ncm.find(params[:id]).day_hours(@ncm.report_start_date, @ncm.report_end_date).to_s
+
+            %br
+            %b Swing Hours:
+            = Ncm.find(params[:id]).swing_hours(@ncm.report_start_date, @ncm.report_end_date).to_s
+
+            %br
+            %b Graveyard Hours:
+            = Ncm.find(params[:id]).graveyard_hours(@ncm.report_start_date, @ncm.report_end_date).to_s
+
+            %br
+            %b Receiving Hours:
+            = Ncm.find(params[:id]).receiving_hours(@ncm.report_start_date, @ncm.report_end_date).to_s
+        %td{:style => "border: 0; width: 33.3%"}
+          %p
+            - if @ncm.cost_center_type == "Cost Center"
+              %b Cost Center Name:
+              = @ncm.cost_center_name
+              %br
+
+            - elsif @ncm.cost_center_type == "Supplier"
+              %b Supplier Code:
+              = @ncm.supplier_code
+
+              %br
+              %b Supplier Address:
+              = @ncm.supplier_address
+              %br
+              = @ncm.supplier_city
+              = @ncm.supplier_state
+              = @ncm.supplier_zip
+
+              %br
+              %b Supplier Contact:
+              = @ncm.supplier_contact
+
+              %br
+              %b Supplier Phone:
+              = @ncm.supplier_phone
+    %br
+  - unless @defect_totals.empty?
+    :javascript
+      $(function(){
+        new Highcharts.Chart({
+          chart: {
+            renderTo: "pareto_chart",
+            defaultSeriesType: 'column'
+          },
+          title: {
+            text: "Defects Summary"
+          },
+          credits: {
+                  enabled: false
+          },
+          xAxis: {
+            categories: #{@defects.map {|defect| defect ? defect["label"] : 0 }.inspect },
+            labels: {
+              rotation: -45,
+              align: 'right',
+              style: {
+                font: 'normal 13px Arial, sans-serif'
+              }
+            }
+          },
+          yAxis: {
+            min: 0,
+            title: {
+              text: "Defect Quantity"
+            }
+          },
+          legend: {
+            enabled: false
+          },
+          series: [{
+            name: "Rejects",
+            data: #{@defects.map {|defect| defect ? defect["count"] : 0 }.inspect }
+          },{
+            type: 'spline',
+            name: "Total Rejects",
+            data: #{ @defect_totals.inspect }
+          },]
+        });
+      });
+    #pareto_chart{ :style => "width: 100%; height: 400px;" }
+
+  %br
+  .scan_pagination{ :style => "clear: both; text-align: center;"}
+    = will_paginate @paginated_scans
+  %br
+
+  .export_link{ :style => "text-align: right; margin-bottom: 5px;"}
+    = link_to "Export PDF", params.merge(:controller => "ncms", :action => "export_pdf", :id => @ncm.id.to_s )
+    = link_to "Export CSV", params.merge(:controller => "ncms", :action => "export", :id => @ncm.id.to_s )
+
+  %table
+    %tr
+      - if @can_edit_ncm == true
+        %th
+      %th Data ID
+      %th Row ID
+      %th Inspection Date
+      %th Lot Number
+      %th Serial Number
+      %th IPN
+      %th Mfg. Date
+      %th Part Number
+      %th # Inspected
+      %th # Rejected
+      %th Rejects Breakdown
+      %th PPM Rate
+      %th Comment
+
+    - if @paginated_scans
+      - @paginated_scans.each do |scan|
+        %tr
+          - if @can_edit_ncm == true
+            %td
+              = link_to "Edit", edit_scan_path(scan)
+              = link_to "Delete", scan, :confirm => 'Are you sure you want to delete this data?', :method => :delete if current_user.is_admin?
+          %td= scan.id
+          %td= scan.row_id if scan.row_id
+          %td= scan.scanned_on.strftime("%m/%d/%y")
+          %td= scan.lot_number.to_s
+          %td= scan.serial
+          %td= scan.ipn
+          %td= scan.manufacturing_date.strftime("%m/%d/%y") if scan.manufacturing_date
+          %td= scan.part_number
+          %td= scan.quantity
+          %td= scan.rejects
+          %td
+            - unless scan.reject_reason_1_quantity.blank? || scan.reject_reason_1_quantity == 0
+              - if scan.reject_reason_1_label
+                = scan.reject_reason_1_label
+              - else
+                Default
+              = ": "
+              = scan.reject_reason_1_quantity
+              %br
+            - unless scan.reject_reason_2_quantity.blank? || scan.reject_reason_2_quantity == 0
+              = scan.reject_reason_2_label if scan.reject_reason_2_label
+              = ": "
+              = scan.reject_reason_2_quantity
+              %br
+            - unless scan.reject_reason_3_quantity.blank? || scan.reject_reason_3_quantity == 0
+              = scan.reject_reason_3_label if scan.reject_reason_3_label
+              = ": "
+              = scan.reject_reason_3_quantity
+              %br
+            - unless scan.reject_reason_4_quantity.blank? || scan.reject_reason_4_quantity == 0
+              = scan.reject_reason_4_label
+              = ": "
+              = scan.reject_reason_4_quantity
+              %br
+            - unless scan.reject_reason_5_quantity.blank? || scan.reject_reason_5_quantity == 0
+              = scan.reject_reason_5_label
+              = ": "
+              = scan.reject_reason_5_quantity
+          - if scan.quantity > 0
+            %td= ((scan.rejects * 1.0 / scan.quantity) * 1000000).round
+          - else
+            %td
+
+          %td
+            - unless scan.comments.blank?
+              = link_to "View Comment", "#comment_#{scan.id}"
+    - else
+      %tr
+        %td= "No data entered yet."
+  .scan_pagination{ :style => "clear: both; text-align: center;"}
+    %br
+    = will_paginate @paginated_scans
+
+  %h2{:style=> "margin-top: 20px;"} Comments
+  %table
+    %tr
+      %th{ :style=> "width: 10%;" } Data ID
+      %th{ :style=> "width: 90%;" } Comment
+
+    - if @paginated_scans
+      - @paginated_scans.each do |scan|
+        - unless scan.comments.blank?
+          %tr
+            %td
+              = "<a name='comment_#{scan.id}'></a>".html_safe
+              = scan.id
+            %td
+              = scan.comments
+
+
+= render "shared/left_menu"

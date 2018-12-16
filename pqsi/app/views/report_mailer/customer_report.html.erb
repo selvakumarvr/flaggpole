@@ -1,0 +1,70 @@
+<p>Below you will find sort data from Pyramid Quality Solutions &amp; Innovations for the NCR and date(s) shown. More details can be found at www.pqsiapp.com. For questions/concerns please reply to reports@pqsiinc.com. Thank you.</p>
+
+<h1>
+  Summary For
+  <%= @customer.name.titleize if @customer && @customer.name%>
+  From <%= @start_date.strftime("%m/%d/%y") %> to <%= @end_date.strftime("%m/%d/%y") %>
+</h1>
+
+<% @customer.ncms.order(:ncm_number).each do |ncm| %>
+  <% @total_inspected = 0 %>
+  <% @total_inspected = ncm.total_inspected(@start_date, @end_date) %>
+  <% if @total_inspected > 0 %>
+    <h2>
+      NCM:
+      <%= ncm.label %>
+    </h2>
+    <p>
+      <b>Defect description:</b>
+      <%= ncm.description %>
+      <br>
+      </br>
+      <b>Customer:</b>
+      <%= ncm.customer.name if ncm.customer %>
+      <br>
+      </br>
+      <b>Location:</b>
+      <%= ncm.location.name if ncm.location %>
+      <br>
+      </br>
+      <b>SQE / PQE:</b>
+      <%= ncm.sqe_pqe %>
+      <br>
+      </br>
+      <b>MI Name:</b>
+      <%= ncm.mi_name %>
+      <br>
+      </br>
+
+    </p>
+    <p>
+      <b>Total Inspected:</b>
+      <%= @total_inspected %>
+      <br>
+      </br>
+      <b>Total Rejects:</b>
+      <%= @total_rejects = ncm.total_rejects(@start_date, @end_date) %>
+      <br>
+      </br>
+      <b>Overall PPM Rate</b>
+      <%= ncm.overall_ppm_rate(@start_date, @end_date, @total_rejects, @total_inspected) %>
+    </p>
+    <p>
+      <b>Total Day Hours:</b>
+      <%= ncm.day_hours(@start_date, @end_date).to_s %>
+      <br>
+      </br>
+      <b>Total Second Hours:</b>
+      <%= ncm.swing_hours(@start_date, @end_date).to_s %>
+      <br>
+      </br>
+      <b>Total Third Hours:</b>
+      <%= ncm.graveyard_hours(@start_date, @end_date).to_s %>
+      <br>
+      </br>
+      <b>Total Receiving Hours:</b>
+      <%= ncm.receiving_hours(@start_date, @end_date).to_s %>
+    </p>
+    <hr>
+  <% end %>
+<% end %>

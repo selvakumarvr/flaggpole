@@ -1,0 +1,36 @@
+<%= activegrid paginate: 200 do |grid, model| %>
+  <%= grid.column :ncr_number , filter: "string", sortable: false do %>
+    <%= link_to model.label(simple: true), model %>
+  <% end %>
+  <% logger.debug "locations: #{current_user.authorized_locations.map{|l| l.name if l && l.name }}" %>
+  
+  <% locations = current_user.authorized_locations %>
+  <% if locations %>
+    <%= grid.column :location, filter: current_user.authorized_locations.map{|l| l.name if l && l.name }.select {|l| !l.blank? }.uniq!, sortable: false, blank_filter: "All Locations" do %>
+      <%= model.location.name if model.location && model.location.name %>
+    <% end %>
+  <% else %>
+    <%= grid.column :location, sortable: false, blank_filter: "All Locations" do %>
+      <%= model.location.name if model.location && model.location.name %>
+    <% end %>
+  <% end %>
+  
+  <%= grid.column :customer, filter: current_user.authroized_customers.map{|c| c.name if c && c.name }.select {|c| !c.blank? }.uniq!, sortable: true, blank_filter: "All Customers" do %>
+
+    <%= model.customer.name if model.customer && model.customer.name %>
+  <% end %>
+
+
+  <%= grid.column :description, filter: "string", sortable: false do %>
+    <%= model.description %>
+  <% end %>
+  
+  <%= grid.column :sqe_pqe, filter: "string", sortable: false do %>
+    <%= model.sqe_pqe %>
+  <% end %>
+  
+  <%= grid.column :mi_name, filter: "string", sortable: false do %>
+    <%= model.mi_name %>
+  <% end %>
+
+<% end %>

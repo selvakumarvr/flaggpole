@@ -1,0 +1,198 @@
+1. Start doing sort
+    - Tally Sheet
+2. Barcode File
+
+Part #, Quantity, Lot #, Serial #, Accepted, Rejected
+
+  - Need a way to label part # with description and reuse that description in future
+
+-----
+When customer wants to start a new sort, Customer clicks on Add New Project.
+Create new project based on old project (duplicate project)
+
+That would send a PO and description of job.
+
+Your people would go out to appropriate lots and they would scan the different bins:
+  - Part #
+  - Quantity
+  - License Plate
+  - Serial #
+  - Date
+
+Vendor
+  - Normalized drop down menu
+
+Create Chart Based On Their Excel Report
+
+--------
+
+Models
+  - Ability
+      - User levels
+          - admin
+          - client admin
+          - client
+  - Part
+    - Name
+    - Number
+    
+  - Project
+    - Name
+    - Description
+    - Quantity
+    - Authorizer
+    - Vendor
+    - Contact Name
+    - Contact Phone
+    - Client ID
+    
+  - User
+    - Email
+    - First Name
+    - Last Name
+    - Company
+    - Level
+    - Client ID
+  - Scan
+    - Part #
+    - Quantity
+    - License Plate
+    - Serial #
+    - Rejects
+    - Date
+    
+--------
+
+TO DO
+
+* Create a new client
+    - Creates new user at the same time
+* Client can invite additional users
+    - they enter email and it sends them email to join
+* Limit projects viewed to just the ones you have access to.
+* Allow duplicating of projects to create new projects.
+* When viewing a project, you should be able to add new scans either through:
+    - manual entry
+    - through importing of CSV file.
+* Create new report
+    - Scope report by project, part or date range
+    
+===========
+* Need to upload work instructions on the New Project page
+* Enter new vendor at the same time you're adding a new project
+* Vendor needs:
+    - Company name
+    - Plant Location
+        - Text area
+        - Link to Google maps
+
+* Create new part from New Scan page
+    - Create multiple parts from same
+
+* Add PPM Rate to Chart
+* Add Client name & Vendor Location on Report
+* Add Print button 
+    Option for printing just chart
+    Option for printing chart + raw data
+    Option for exporting raw data
+    * Printed version should have
+        - PQSI Logo
+        - PQSI Phone number
+        - PQSI Personnel contact info
+* Different Permission levels for clients. When you create a new client, 
+  you need to be able to create locations for them. Top 
+
+* Remove supervisior from Project and add to scan and to data importing.
+
+----------
+
+USE CASES
+
+Add Client
+  Add a client
+  Add locations for that client
+    Address 1
+    Address 2
+    City
+    State
+    Zip
+  They can’t add a client unless they are a admin level user
+
+
+Client invites more users
+  Client logs in.
+  If they are admin level for that client, they see an Invite More Users link somewhere
+  When they click the Invite More Users link, it takes them to a page where they can add a user.
+  They enter:
+    First name
+    Last name
+    Email
+    Password
+    Password
+    Permission Level
+  There should be a check to make sure they can’t change the permission level beyond whatever it currently is.
+  and assign them to just a specific locations.
+
+
+Add a Project
+  Enter
+  Name
+  Description (smaller field)
+  Quantity
+  Select a Vendor & Location
+  They should have access to past Vendors as well as other vendors we’ve given them access to.
+  If none shown, they should be given a text field that they can enter details in.
+  Enter Contact Name
+  Upload work instructions document
+
+
+Scope By Client
+  Client logs in
+  They only see projects they have access to
+  They can request new projects
+  They can see reports for projects
+
+
+Create Parts
+  Enter part name
+  Enter multiple part numbers
+
+
+Create a Report
+  Choose multiple part numbers or only 1 part number to show on the report
+  Report should show:
+    Project Name
+    Project ID
+    Part Name
+    Part Numbers
+    Data Table
+    PPM Rate
+    Client name & Location
+  Be able to email or print report
+  PQSI Logo, Supervisor and contact info on header of each document.
+
+
+Creating users
+  Some users will have full access to client data
+  Some users will have access to just data from their plant
+
+
+Client Requesting A New Project
+  Enters
+    Parts on hand
+    Requesters name
+    Work Instructions text field
+    Upload documents
+    PO Number text field or Upload PO document
+    Date Stamp (automatically)
+    Who was logged in the system requesting the sort
+    Email address
+    Phone
+    Cell
+  When filled out, it should go to customers email and PQSI.
+
+
+Tutorials to create
+  PQSI: How to add a new client
+  PQSI: How to add locations to a client
+  Client: How to request a new project

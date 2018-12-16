@@ -1,0 +1,21 @@
+--- !map:HashWithIndifferentAccess
+
+common: &common
+  posts_per_page: 10
+  bitly_username: ejunker
+  bitly_password: Q_dd76420153c38cb8bc00c942ab40f4b9
+  twitter:
+    consumer_key: ZalM8H9ONqEvA2s4SWGcsA
+    consumer_secret: 1fDUIC4njKJh6axh8nUL7VmPc2wzZtvn5v6wJnRXnfA
+  groupon_token: ca03ee2af882c45695f222540c36c8fe304b4ebb
+  yourls_address: http://mk3.me/yourls-api.php
+  yourls_api_key: f3bb850d2a
+
+development:
+  <<: *common
+
+test:
+  <<: *common
+
+production:
+  <<: *common

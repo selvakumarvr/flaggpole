@@ -1,0 +1,14 @@
+.float_right.no_print
+  = link_to 'New NCR', new_ncm_path
+  - case params[:action]
+  - when "index"
+    = link_to 'Archived NCRs', archived_ncms_path
+  - when "archived"
+    = link_to 'Active NCRs', ncms_path
+
+
+%h1 NCRs
+
+= activegrid :ncms
+
+= render "shared/left_menu"

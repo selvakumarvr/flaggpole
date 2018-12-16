@@ -1,0 +1,18 @@
+<p>
+  <b>Message type:</b>
+  <%=h @promotion.message_type %>
+</p>
+
+<p>
+  <b>Message:</b>
+  <%=h @promotion.message %>
+</p>
+
+<p>
+  <b>Send at:</b>
+  <%=h @promotion.send_at %>
+</p>
+
+
+<%= link_to 'Edit', edit_promotion_path(@promotion) %> |
+<%= link_to 'Back', promotions_path %>

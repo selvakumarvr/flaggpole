@@ -1,0 +1,36 @@
+= form_for @user do |f|
+  -if @user.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@user.errors.count, "error")} prohibited this user from being saved:"
+      %ul
+        - @user.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field.labels_on_top
+    = f.label :first_name
+    = f.text_field :first_name
+  .field.labels_on_top
+    = f.label :last_name
+    = f.text_field :last_name
+  .field.labels_on_top
+    = f.label :email
+    = f.text_field :email
+  .field.labels_on_top
+    = f.label :password, "New Password"
+    = f.password_field :password
+  .field.labels_on_top
+    = f.label :password_confirmation, "Password Again"
+    = f.password_field :password_confirmation
+  - if current_user.is_master_admin? || current_user.is_volcanic?
+    .field.labels_on_top
+      = f.label :level, "Permission Level"    
+      = f.select :level, options_for_select([["Volcanic", "volcanic"], ["Master Admin", "master_admin"], ["PQSI Employee", "pqsi_employee"], ["PQSI Data Entry Person", "pqsi_data_entry"], ["Customer Manager", "customer_manager"], ["Customer Location Manager", "customer_location_manager"]], :selected => @user.level)
+    .field.labels_on_top
+      = f.label :customer
+      = f.collection_select(:customer_id, Customer.order("name").all, :id, :name, :prompt => true)
+    .field.labels_on_top
+      = f.label :location, "If Plant Manager, select Plant Location:"
+      = f.collection_select(:location_id, @user.customer.locations.order("name").all, :id, :name, :prompt => true)
+  .actions
+    = f.submit 'Save'
+

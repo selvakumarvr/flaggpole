@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%=h @organization.name %>
+</p>
+
+<p>
+  <b>Line 1:</b>
+  <%=h @organization.line1 %>
+</p>
+
+<p>
+  <b>Line 2:</b>
+  <%=h @organization.line2 %>
+</p>
+
+<p>
+  <b>Logo:</b>
+  <%= image_tag @organization.logo.url(:medium) %>
+</p>
+
+<p>
+  <b>Links:</b>
+  <ul>
+    <% @organization.organization_links.each do |ol| %>
+      <li><%= link_to ol.name, ol.url %></li>
+    <% end %>
+  </ul>
+</p>
+
+<h2>Users</h2>
+<ul>
+  <% @organization.users.each do |u| %>
+    <li><%= u.email %></li>
+  <% end %>
+</ul>
+
+<%= link_to 'Edit', edit_admin_organization_path(@organization) %> |
+<%= link_to 'Back', admin_organizations_path %>

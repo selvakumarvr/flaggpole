@@ -1,0 +1,59 @@
+source "https://rubygems.org"
+ruby "1.9.3"
+
+gem "noaa-alerts", :git => "git://github.com/ejunker/noaa-alerts.git"
+
+gem "active_model_serializers", "~> 0.8.1"
+gem "bitly"
+gem "bootstrap-will_paginate"
+gem "curb"
+gem "delayed_job", "~> 4.0.0"
+gem "delayed_job_active_record", "~> 4.0.0"
+gem "delayed_job_web"
+gem "devise", "~> 2.2.1"
+gem "feed-normalizer"
+gem "foreman", "~> 0.63.0"
+gem "geocoder", "~> 1.1.1"
+gem "hashie"
+gem "httparty", "~> 0.10.2"
+gem "jquery-rails"
+gem "json"
+gem "mechanize"
+gem "mysql2", "~> 0.3.11"
+gem "oauth"
+gem "paperclip", "~> 3.5.1"
+gem "parallel", "~> 0.7.1"
+gem "rails", "3.2.14"
+gem "rake", "~> 10.1.0"
+gem "rapns", "~> 3.3.0"
+gem "strong_parameters"
+gem "tweetstream"
+gem "twitter", "4.8.1"
+gem "whenever"
+gem "will_paginate", "~> 3.0.3"
+gem "yourls"
+
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem "bootstrap-sass", "~> 2.3.2.1"
+  gem "coffee-rails", "~> 3.2.1"
+  gem "sass-rails", "~> 3.2.3"
+  gem "uglifier", ">=1.0.3"
+end
+
+group :development do
+  gem "awesome_print"
+  gem "better_errors"
+  gem "binding_of_caller"
+  gem "meta_request"
+  gem "quiet_assets"
+  gem "sextant"
+  gem "thin"
+  gem "wirble"
+end
+
+group :test do
+  gem "awesome_print"
+  gem "webmock", "~> 1.13.0"
+end

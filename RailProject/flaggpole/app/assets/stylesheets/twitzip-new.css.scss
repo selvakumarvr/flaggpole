@@ -1,0 +1,473 @@
+* {
+  margin: 0; 
+  //padding: 0;
+}
+
+p {
+  //margin: 1em 0;
+}
+
+h2.header {
+  color: #4DB3DD;
+}
+
+#container {
+  width: 960px;
+  margin: 0 auto;
+}
+
+#header {
+  width: 960px;
+  height: 160px;
+  background-image: url(image_path('TZ_header.png'));
+  text-align: right;
+  font-size: 12pt;
+}
+
+#navbar {
+  padding: 0.5em;
+  color: white;
+}
+
+#navbar ul li {
+  display: inline;
+  list-style-type: none;
+}
+
+#navbar ul li a {
+  padding: 0.75em;
+  color: white;
+  text-decoration: none;
+}
+
+#navbar ul li a:hover {
+  color: white;
+  background-color: teal;
+}
+
+.opps {
+  height: 1em;
+  margin-bottom: 0.5em;
+}
+
+#navbar2 {
+  margin-right: 0.5em;
+  margin-top: 2.0em;
+  //padding-top: 0.5em;
+  padding-right: 0.5em;
+  color: white;
+
+  ul li {
+    display: inline;
+    list-style-type: none;
+  }
+
+  a, input[type=image] {
+    width: 27px;
+    height: 24px;
+    float: right;
+    background: url(image_path('TwitZipbuttons.png')) no-repeat 0 0;
+  }
+
+  button {
+    width: 27px;
+    height: 24px;
+    float: right;
+    border: none;
+    background: url(image_path('TwitZipbuttons.png')) no-repeat 0 0;
+  }
+
+  .goicon {
+    text-decoration: none;
+    background-position: -1px -296px;
+    margin: 0 5px;
+  }
+
+  //.goicon:link {
+  //  text-decoration: none;
+  //  background-position: -1px -296px;
+  //}
+
+  .goicon:hover {
+    text-decoration: none;
+    background-position: -153px -296px;
+  }
+
+  .goicon:visited {
+    text-decoration: none;
+    background-position: -1px -655px;
+  }
+}
+
+#main {
+  width: 700px;
+  height: 450px;
+  margin: 20px 0 0 40px;
+  float: left;
+  color: #525252;
+  background-color: white;
+
+  img {
+    display: inline;
+    margin: 0 10px 0;
+    vertical-align: middle;
+    border: none;
+  }
+
+  a {
+    margin: auto; 
+    display: block;
+    float: left;
+    background: url(image_path('TwitZipbuttons.png')) no-repeat 0 0;
+  }
+
+  a.submit {
+    width: 84px;
+    height: 31px;
+    text-decoration: none;
+    margin: 0 0 0 40px; 
+    display: block;
+    float: left;
+    background: url(image_path('TwitZipbuttons.png')) no-repeat 0 0;
+  }
+
+  a.submit:link {
+    background-position: -1px -185px;
+  }
+
+  a.submit:hover {
+    background-position: -153px -185px;
+  }
+
+  a.submit:visited {
+    background-position: -1px -544px;
+  }
+
+  a.signup {
+    width: 84px;
+    height: 31px;
+    text-decoration: none;
+    margin: 0 0 0 130px; 
+    display: block;
+    float: left;
+    background: url(image_path('TwitZipbuttons.png')) no-repeat 0 0;
+  }
+
+  a.signup:link {
+    background-position: -1px -75px;
+  }
+
+  a.signup:hover {
+    background-position: -153px -75px;
+  }
+
+  a.signup:visited {
+    background-position: -1px -434px;
+  }
+
+  a.getstarted {
+    width: 117px;
+    height: 31px;
+    text-decoration: none;
+  }
+
+  a.getstarted:link {
+    background-position: -1px -39px;
+  }
+
+  a.getstarted:hover {
+    background-position: -153px -39px;
+  }
+
+  a.getstarted:visited {
+    background-position: -1px -398px;
+  }
+
+  a.follow {
+    width: 145px;
+    height: 31px;
+    text-decoration: none;
+  }
+
+  a.follow:link {
+    background-position: -1px -2px;
+  }
+
+  a.follow:hover {
+    background-position: -153px -2px;
+  }
+
+  a.follow:visited {
+    background-position: -1px -361px;
+  }
+}
+
+#input {
+  font-size: 1em;   
+  color: #525252;
+  border-top: medium solid #ff8000;
+  padding-top: 1em;
+  margin-top: 1em;
+}
+
+#footer {
+  width: 100%;
+  //margin-bottom: 20px;
+  //color: #525252; 
+  float: left;
+  //font-size: 0.9em;
+  margin: 20px 0;
+
+  a:link {
+    color: #4db3dd;
+    text-decoration: none;
+  }
+
+  a:visited {
+    color: #4db3dd;
+    text-decoration: none;
+  }
+
+  a:link {
+    color: #4db3dd;
+    text-decoration: none;
+  }
+
+  a:visited {
+    color: #4db3dd;
+    text-decoration: none;
+  }
+}
+
+em {
+  margin-right: 10px;
+  line-height: 35px;
+  color: black;
+  font-size: 14pt;
+}
+
+.goborder {
+  padding: 2px 2px;
+  background-color: white;
+  float: right;
+  border: 1px solid white;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+input.gotext {
+  //color: silver;
+  //font-family: Gill Sans MT, Arial, Helvetica, sans-serif;
+  //font-style: italic;
+  //font-size: 1em;
+  text-align: center;
+  float: left;
+
+  width: auto;
+  padding: 0px;
+  margin-bottom: 0px;
+}
+
+//h1 {
+//  font-size: 2em;
+//  font-weight: normal;
+//  color: #4db3dd;
+//}
+
+form {
+  //margin: .7em 0;
+  //font-size: 1.2em;
+  //color: #525252;
+}
+
+form.zipcode {
+  margin: 0;
+  font-size: 1em;
+}
+
+.tweet form {
+  margin: 1em 0;
+}
+
+form div {
+  margin: 1em 0;
+  //padding: 1em 0 1em 3em;
+  //border-top: medium solid #ff8000;
+  //border-bottom: medium solid #ff8000;
+}
+
+.inputmargin {
+  margin-left: 50px;
+}
+
+.inputright {
+  margin-left: 100px;;
+}
+
+label {
+  //width: 50px;
+  //color: #525252;
+  //text-align: right;
+}
+
+label1 {
+  width: 125px;
+  margin-right: 5px;
+  color: #525252;
+  float:left;
+  text-align:right;
+}
+
+labelstate {
+  width: 50px;
+  margin-left: 35px;
+  color: #525252;
+  text-align:right;
+}
+
+.inputmargin {
+  margin: 0 0 0 40px;
+}
+
+input.text {
+  font-size: 1.2em;  
+  background-color: white;
+}
+
+.tweet input.text {
+  font-family: Courier, Courier New;
+}
+
+table {
+  //width: 690px;
+  //margin: 0 auto;
+  //color: #525252;
+  //font-size: 12pt;
+}
+
+img.center {
+  display: block;
+  margin: auto;
+}
+
+.recent {
+  margin: 4px 0 0 10px;
+  font-weight: bold;
+  font-size: 1.2em;
+  color: #525252;
+}
+
+.conversation {
+  text-align: center;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #168ec2;
+  line-height: 68em;
+}
+
+.note {
+  margin: 0 0 0 60px;
+  font-size: 0.7em;
+}
+
+@mixin sideborder {
+  padding: 5px 5px;
+  border: 2px solid #4db3dd;
+  border-radius: 10px;
+}
+
+#sidebar {
+  width: 225px;
+  height: 650px;
+  float: right;
+  @include sideborder;
+}
+
+#slider {
+  .viewport {
+    width: 225px;
+    height: 650px;
+    overflow: hidden;
+    position: relative;
+  }
+  .overview {
+    list-style: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    //width: 200px;
+    //height: 575px;
+    margin: 0;
+  }
+  .overview li{
+    float: left;
+    margin: 0 0 4px 0;
+    padding: 5px 0;
+    border-bottom: 1px solid #dcdcdc;
+    //border-radius: 4px;
+    //width: 196px;
+    height: 120px;
+    //@include sideborder;
+  }
+  /*
+  .buttons {
+    background:url("../images/buttons.png") no-repeat scroll 0 0 transparent;
+    display: block; margin: 0 0 5px 100px;
+    background-position: 0 -74px;
+    text-indent: -999em;
+    width: 39px;
+    height: 37px;
+    overflow: hidden;
+    position: relative;
+  }
+  .next {
+    background-position: 0 -112px;
+    margin: 5px 0 0 100px;
+  }
+  .disable {
+    visibility: hidden;
+  }
+  */
+}
+
+@media (min-width: 768px) {
+  #map_canvas {
+    width: 480px;
+    height: 320px;
+  }
+
+  .cap-alert {
+   .map {
+    float: right;
+    margin: 0 0 10px 10px;
+   }
+  }
+
+  .index #main {
+    height: 650px;
+    margin-left: 0px;
+    background: url(image_path('TZ_homegraphic.png')) white bottom center no-repeat;
+  }
+}
+
+@media (max-width: 767px) {
+  #map_canvas {
+    width: 240px;
+    height: 160px;
+  }
+
+  .cap-alert {
+    .map {
+      margin: 0 0 10px 10px;
+    }
+  }
+
+  .index #main {
+    //height: 650px;
+    //margin-left: 0px;
+    //background: url(image_path('TZ_homegraphic.png')) white bottom center no-repeat;
+  }
+}
